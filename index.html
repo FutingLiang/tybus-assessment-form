@@ -1,0 +1,1956 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>桃園市公車營運評鑑填報系統</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 2px,
+                rgba(255,255,255,0.05) 2px,
+                rgba(255,255,255,0.05) 4px
+            );
+            animation: shimmer 20s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: #f8f9fa;
+            overflow-x: auto;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .nav-tab {
+            padding: 15px 25px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            white-space: nowrap;
+            position: relative;
+            color: #6c757d;
+        }
+
+        .nav-tab:hover {
+            background: rgba(33, 147, 176, 0.1);
+            color: #2193b0;
+        }
+
+        .nav-tab.active {
+            background: #2193b0;
+            color: white;
+        }
+
+        .nav-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #2193b0;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            padding: 20px;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+
+        .form-group:hover {
+            background: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .form-group h3 {
+            color: #2193b0;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .form-group h3::before {
+            content: '📋';
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-field label {
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #495057;
+        }
+
+        .form-field input,
+        .form-field select,
+        .form-field textarea {
+            padding: 12px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .form-field input:focus,
+        .form-field select:focus,
+        .form-field textarea:focus {
+            outline: none;
+            border-color: #2193b0;
+            box-shadow: 0 0 0 3px rgba(33, 147, 176, 0.1);
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            border-radius: 6px;
+            transition: background 0.2s ease;
+        }
+
+        .checkbox-item:hover {
+            background: rgba(33, 147, 176, 0.05);
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 8px;
+            transform: scale(1.2);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(33, 147, 176, 0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d 0%, #adb5bd 100%);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(108, 117, 125, 0.3);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(220, 53, 69, 0.3);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e9ecef;
+            border-radius: 3px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        .auto-calculate {
+            background: #e8f4fd;
+            border: 1px solid #b8daff;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #0c5460;
+        }
+
+        .validation-error {
+            color: #dc3545;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            max-width: 400px;
+            animation: slideIn 0.3s ease;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-tabs {
+                flex-direction: column;
+            }
+        }
+
+        .section-divider {
+            border-top: 2px solid #2193b0;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .section-divider::after {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 2px;
+            background: #6dd5ed;
+        }
+
+        .station-entry {
+            background: #ffffff;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .station-entry h4 {
+            color: #495057;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .required {
+            color: #dc3545;
+        }
+
+        .field-help {
+            font-size: 12px;
+            color: #6c757d;
+            margin-top: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>114年度桃園市市區汽車客運營運與服務評鑑</h1>
+            <p>書面資料審查填報系統 (113.11.01~114.10.31)</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showSection('basic')">基本資料</button>
+            <button class="nav-tab" onclick="showSection('facilities')">設施設備</button>
+            <button class="nav-tab" onclick="showSection('vehicles')">車輛管理</button>
+            <button class="nav-tab" onclick="showSection('safety')">安全管理</button>
+            <button class="nav-tab" onclick="showSection('training')">教育訓練</button>
+            <button class="nav-tab" onclick="showSection('compliance')">法規遵循</button>
+            <button class="nav-tab" onclick="showSection('services')">服務品質</button>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="content">
+            <!-- 基本資料 -->
+            <div class="section active" id="basic">
+                <div class="form-group">
+                    <h3>公司基本資料</h3>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="companyName">公司名稱 <span class="required">*</span></label>
+                            <input type="text" id="companyName" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="fillPerson">填寫人員 <span class="required">*</span></label>
+                            <input type="text" id="fillPerson" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="fillDate">填表日期 <span class="required">*</span></label>
+                            <input type="date" id="fillDate" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>(A1) 場站空間</h3>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="totalVehicles">市區公車營運路線總車輛數 <span class="required">*</span></label>
+                            <input type="number" id="totalVehicles" required onchange="calculateParkingRatio()">
+                        </div>
+                    </div>
+                    
+                    <div id="stationsContainer">
+                        <div class="station-entry">
+                            <h4>場站 1</h4>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label>場站名稱</label>
+                                    <input type="text" class="station-name">
+                                </div>
+                                <div class="form-field">
+                                    <label>停放面積 (平方公尺)</label>
+                                    <input type="number" class="station-area">
+                                </div>
+                                <div class="form-field">
+                                    <label>格位數</label>
+                                    <input type="number" class="station-spaces" onchange="calculateParkingRatio()">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="btn btn-secondary" onclick="addStation()">新增場站</button>
+                    
+                    <div class="auto-calculate" id="parkingRatio">
+                        停車格數占總車數比例：計算中...
+                    </div>
+                </div>
+            </div>
+
+            <!-- 設施設備 -->
+            <div class="section" id="facilities">
+                <div class="form-group">
+                    <h3>(B1) 車齡比率</h3>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="totalTrips">總班次數</label>
+                            <input type="number" id="totalTrips">
+                        </div>
+                        <div class="form-field">
+                            <label for="avgAge">平均車齡 (年)</label>
+                            <input type="number" step="0.1" id="avgAge">
+                        </div>
+                    </div>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="hasVehicleProof">
+                            <label for="hasVehicleProof">提供車籍證明資料</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>(B4) 消防安全設施</h3>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="hasExtinguisherPhoto">
+                            <label for="hasExtinguisherPhoto">提供車輛內滅火器照片</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="extinguisherNormal">
+                            <label for="extinguisherNormal">滅火器均在有效期限內且壓力表正常</label>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label for="extinguisherIssue">滅火器異常原因 (如有)</label>
+                        <textarea id="extinguisherIssue" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>(B6) 車輛維修保養制度及執行情形</h3>
+                    <div class="form-field">
+                        <label>車輛保養方法</label>
+                        <select id="maintenanceType">
+                            <option value="">請選擇</option>
+                            <option value="own">自有保養廠</option>
+                            <option value="outsource">委外保養</option>
+                        </select>
+                    </div>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="safetyCheckForm">
+                            <label for="safetyCheckForm">出車安全檢查表 - 資料完整</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="maintenanceRecord">
+                            <label for="maintenanceRecord">車輛各級保養紀錄卡 - 資料完整</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="maintenanceProcedure">
+                            <label for="maintenanceProcedure">一般保養程序規章 - 資料完整</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="partsInventory">
+                            <label for="partsInventory">車廠備料狀況 - 資料完整</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="certifiedTechnician">
+                            <label for="certifiedTechnician">合格專業技師/技工 - 資料完整</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 車輛管理 -->
+            <div class="section" id="vehicles">
+                <div class="form-group">
+                    <h3>(B3) 排放廢氣品質</h3>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="totalVehiclesB3">總車輛數</label>
+                            <input type="number" id="totalVehiclesB3" onchange="calculateEmissionRatio()">
+                        </div>
+                        <div class="form-field">
+                            <label for="dieselVehicles">柴油車數量</label>
+                            <input type="number" id="dieselVehicles" onchange="calculateEmissionRatio()">
+                        </div>
+                        <div class="form-field">
+                            <label for="electricVehicles">電動車數量</label>
+                            <input type="number" id="electricVehicles" onchange="calculateEmissionRatio()">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="hybridVehicles">油電混合車數量</label>
+                            <input type="number" id="hybridVehicles" onchange="calculateEmissionRatio()">
+                        </div>
+                        <div class="form-field">
+                            <label for="gasolineVehicles">汽油車數量</label>
+                            <input type="number" id="gasolineVehicles" onchange="calculateEmissionRatio()">
+                        </div>
+                        <div class="form-field">
+                            <label for="otherVehicles">其他車輛數量</label>
+                            <input type="number" id="otherVehicles" onchange="calculateEmissionRatio()">
+                        </div>
+                    </div>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="dieselManagementProof">
+                            <label for="dieselManagementProof">提供柴油車自主管理標章合格資料</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="gasolineEmissionTest">
+                            <label for="gasolineEmissionTest">提供汽油車排氣定檢資料</label>
+                        </div>
+                    </div>
+                    <div class="auto-calculate" id="emissionRatio">
+                        車輛類型分佈：計算中...
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>(B7) 電動車比率與購置</h3>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="totalVehiclesB7">市區公車營運路線總車輛數</label>
+                            <input type="number" id="totalVehiclesB7" onchange="calculateElectricRatio()">
+                        </div>
+                        <div class="form-field">
+                            <label for="electricVehiclesB7">電動車總車輛數</label>
+                            <input type="number" id="electricVehiclesB7" onchange="calculateElectricRatio()">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="purchasedElectric">評鑑期間內採購但未交車電動車數量</label>
+                            <input type="number" id="purchasedElectric">
+                        </div>
+                        <div class="form-field">
+                            <label for="unsuitableRoute">不適合使用電動車路線之車輛數</label>
+                            <input type="number" id="unsuitableRoute">
+                        </div>
+                    </div>
+                    <div class="auto-calculate" id="electricRatio">
+                        電動車比率：計算中...
+                    </div>
+                    
+                    <div class="section-divider"></div>
+                    
+                    <h4>電動車購置與汰換</h4>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="electricPurchaseData">
+                            <label for="electricPurchaseData">評鑑期間內電動車購置資料完整</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="vehicleReplacementData">
+                            <label for="vehicleReplacementData">評鑑期間內公車汰換資料完整</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 安全管理 -->
+            <div class="section" id="safety">
+                <div class="form-group">
+                    <h3>(D2) 交通違規及行車肇事率</h3>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="totalMileage">期間總里程數 (公里)</label>
+                            <input type="number" id="totalMileage" onchange="calculateAccidentRate()">
+                        </div>
+                        <div class="form-field">
+                            <label for="a1Accidents">A1事故件數</label>
+                            <input type="number" id="a1Accidents" onchange="calculateAccidentRate()">
+                        </div>
+                        <div class="form-field">
+                            <label for="a2Accidents">A2事故件數</label>
+                            <input type="number" id="a2Accidents" onchange="calculateAccidentRate()">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="trafficViolations">交通違規被舉發件數</label>
+                            <input type="number" id="trafficViolations" onchange="calculateViolationRate()">
+                        </div>
+                    </div>
+                    <div class="auto-calculate" id="accidentRate">
+                        每十萬延車公里肇事率：計算中...
+                    </div>
+                    <div class="auto-calculate" id="violationRate">
+                        每十萬延車公里違規率：計算中...
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>(B5) 行車記錄器之設置與管理</h3>
+                    <div class="form-field">
+                        <label>路線形式</label>
+                        <select id="routeType">
+                            <option value="">請選擇</option>
+                            <option value="taoyuan_bus">桃小巴路線</option>
+                            <option value="other">其他路線</option>
+                        </select>
+                    </div>
+                    
+                    <div id="otherRouteFields" style="display: none;">
+                        <h4>大客車專用行車紀錄器管理</h4>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="hasStatReport">
+                                <label for="hasStatReport">定期查核統計報表 - 資料完整</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="hasRewardPunish">
+                                <label for="hasRewardPunish">訂定查核獎懲辦法 - 資料完整</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="hasExecution">
+                                <label for="hasExecution">獎懲實際執行記錄 - 資料完整</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section-divider"></div>
+
+                    <h4>影像式行車記錄器保存時間</h4>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="video14Days">
+                            <label for="video14Days">保存14天(含)以上 - 資料完整</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="video7to14Days">
+                            <label for="video7to14Days">保存7(含)~14天 - 資料完整</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="videoUnder7Days">
+                            <label for="videoUnder7Days">保存7天以下 - 資料完整</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="canProvideVideo">
+                            <label for="canProvideVideo">可於簡報時提供指定路線、日期及時間之行車紀錄影像</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>(D8) 公司行車安全制度之完整性與落實程度</h3>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="driverMentalManagement">
+                            <label for="driverMentalManagement">駕駛員身心管理制度 - 資料完整</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="drivingInspection">
+                            <label for="drivingInspection">行車稽查管理作業 - 資料完整</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 教育訓練 -->
+            <div class="section" id="training">
+                <div class="form-group">
+                    <h3>(D5) 人員管理與教育訓練</h3>
+                    
+                    <h4>必要訓練課程</h4>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="fireTraining">
+                            <label for="fireTraining">消防及緊急應變危機處理訓練 - 資料完整</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="elderlyTraining">
+                            <label for="elderlyTraining">駕駛高齡友善服務訓練 - 資料完整</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="disabilityTraining">
+                            <label for="disabilityTraining">駕駛身障服務及設備操作訓練 - 資料完整</label>
+                        </div>
+                    </div>
+
+                    <div class="section-divider"></div>
+
+                    <h4>申訴回訓與宣導</h4>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="complaintTraining">
+                            <label for="complaintTraining">駕駛申訴或稽查缺失回訓及宣導 - 資料完整</label>
+                        </div>
+                    </div>
+
+                    <div class="section-divider"></div>
+
+                    <h4>出勤前檢測</h4>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="alcoholTest">
+                            <label for="alcoholTest">出車前酒測 - 資料完整</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="temperatureTest">
+                            <label for="temperatureTest">出車前量體溫 - 資料完整</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="bloodPressureTest">
+                            <label for="bloodPressureTest">出車前量血壓 - 資料完整</label>
+                        </div>
+                    </div>
+
+                    <div class="section-divider"></div>
+
+                    <h4>其他管理措施</h4>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="rewardPunishment">
+                            <label for="rewardPunishment">設立獎懲規定，並付諸執行 - 資料完整</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="disasterDrill">
+                            <label for="disasterDrill">落實防災實際演練 - 資料完整</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>(D6) 監督管理</h3>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="accidentReport">
+                            <label for="accidentReport">行車事故通報與處理 - 資料完整</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="trafficLawPromotion">
+                            <label for="trafficLawPromotion">落實宣導交通法規政策 - 資料完整</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="accountingSystem">
+                            <label for="accountingSystem">確實執行交通部會計制度 - 資料完整</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 法規遵循 -->
+            <div class="section" id="compliance">
+                <div class="form-group">
+                    <h3>(D7) 保險狀況</h3>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="passengerInsurance">
+                            <label for="passengerInsurance">乘客意外險投保 - 資料完整</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="thirdPartyInsurance">
+                            <label for="thirdPartyInsurance">第三人責任險投保 - 資料完整</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>(D10) 違反勞基法</h3>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="totalMileageD10">期間總里程數 (公里)</label>
+                            <input type="number" id="totalMileageD10" onchange="calculateLaborViolationRate()">
+                        </div>
+                        <div class="form-field">
+                            <label for="laborViolations">勞基法違規次數</label>
+                            <input type="number" id="laborViolations" onchange="calculateLaborViolationRate()">
+                        </div>
+                    </div>
+                    <div class="auto-calculate" id="laborViolationRate">
+                        每十萬延車公里違反勞基法次數：計算中...
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>(F1) 性別平等法令規範</h3>
+                    
+                    <h4>休假規定</h4>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="maternityLeave">
+                            <label for="maternityLeave">提供產假</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="prenatalLeave">
+                            <label for="prenatalLeave">提供產檢假</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="paternityLeave">
+                            <label for="paternityLeave">提供陪產假</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="menstrualLeave">
+                            <label for="menstrualLeave">提供生理假</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="familyCareLeave">
+                            <label for="familyCareLeave">提供家庭照顧假</label>
+                        </div>
+                    </div>
+
+                    <div class="section-divider"></div>
+
+                    <h4>育嬰規定</h4>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="parentalLeave">
+                            <label for="parentalLeave">提供育嬰留職停薪措施</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>(F2) 育兒相關措施</h3>
+                    <div class="form-field">
+                        <label>員工人數</label>
+                        <select id="employeeCount">
+                            <option value="">請選擇</option>
+                            <option value="under100">未達100員(不含)</option>
+                            <option value="over100">有達100員(含)</option>
+                        </select>
+                    </div>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="childcareFacilities">
+                            <label for="childcareFacilities">提供員工育兒友善環境或措施</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="maternalHealth">
+                            <label for="maternalHealth">提供母性健康保護措施</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>(F3) 性別安全相關措施</h3>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="nightWorkSafety">
+                            <label for="nightWorkSafety">女性夜間工作安全衛生措施</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="harassmentTraining">
+                            <label for="harassmentTraining">強化服務人員對性騷擾事件處理能力之訓練</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="harassmentPolicy">
+                            <label for="harassmentPolicy">訂定性騷擾防治措施，並公開揭示</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="harassmentPrevention">
+                            <label for="harassmentPrevention">防範排除(播放性騷擾防治宣導影片、張貼宣導標語...)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 服務品質 -->
+            <div class="section" id="services">
+                <div class="form-group">
+                    <h3>(E3) 無障礙運輸工具</h3>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="accessibleTotal">不含山區/高快速路線及中小型巴士之總車輛數</label>
+                            <input type="number" id="accessibleTotal" onchange="calculateAccessibleRatio()">
+                        </div>
+                        <div class="form-field">
+                            <label for="accessibleVehicles">無障礙車輛數量(含低地板公車及具備升降設備公車)</label>
+                            <input type="number" id="accessibleVehicles" onchange="calculateAccessibleRatio()">
+                        </div>
+                    </div>
+                    <div class="auto-calculate" id="accessibleRatio">
+                        無障礙公車占比：計算中...
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>(D4) 政策配合</h3>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="intersectionTraining">
+                            <label for="intersectionTraining">路口停讓教育訓練 - 有佐證資料</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="intersectionExecution">
+                            <label for="intersectionExecution">路口停讓執行狀況 - 有佐證資料</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="innovativeService">
+                            <label for="innovativeService">創新服務項目 - 有佐證資料</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="newRoutes">
+                            <label for="newRoutes">公車新闢或試辦路線 - 有佐證資料</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>(D9) 前期缺失改善情形</h3>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="prevStopDefects">前期站牌相關缺失項目</label>
+                            <input type="number" id="prevStopDefects" onchange="calculateImprovementRatio()">
+                        </div>
+                        <div class="form-field">
+                            <label for="improvedStopDefects">已改善站牌缺失項目</label>
+                            <input type="number" id="improvedStopDefects" onchange="calculateImprovementRatio()">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="prevVehicleDefects">前期隨車調查設備相關缺失項目</label>
+                            <input type="number" id="prevVehicleDefects" onchange="calculateImprovementRatio()">
+                        </div>
+                        <div class="form-field">
+                            <label for="improvedVehicleDefects">已改善隨車設備缺失項目</label>
+                            <input type="number" id="improvedVehicleDefects" onchange="calculateImprovementRatio()">
+                        </div>
+                    </div>
+                    <div class="auto-calculate" id="improvementRatio">
+                        改善比率：計算中...
+                    </div>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button type="button" class="btn btn-secondary" onclick="prevSection()">上一頁</button>
+                <button type="button" class="btn btn-primary" onclick="nextSection()">下一頁</button>
+                <button type="button" class="btn btn-secondary" onclick="saveProgress()">儲存進度</button>
+                <button type="button" class="btn btn-success" onclick="submitForm()">提交表單</button>
+                <button id="exportBtn" type="button" class="btn btn-secondary" onclick="exportExcel()"disabled>匯出 Excel</button>
+                <button type="button" class="btn btn-danger" onclick="resetForm()">重置表單</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSection = 0;
+        const sections = ['basic', 'facilities', 'vehicles', 'safety', 'training', 'compliance', 'services'];
+        let stationCount = 1;
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('fillDate').value = new Date().toISOString().split('T')[0];
+            loadProgress();
+            updateProgress();
+            
+            // 路線形式變更時顯示/隱藏欄位
+            document.getElementById('routeType').addEventListener('change', function() {
+                const otherFields = document.getElementById('otherRouteFields');
+                if (this.value === 'other') {
+                    otherFields.style.display = 'block';
+                } else {
+                    otherFields.style.display = 'none';
+                }
+            });
+
+            // 自動保存功能
+            setInterval(autoSave, 60000); // 每分鐘自動保存一次
+        });
+
+        // 顯示指定區段
+        function showSection(sectionId) {
+            // 隱藏所有區段
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // 移除所有tab的active狀態
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // 顯示指定區段
+            document.getElementById(sectionId).classList.add('active');
+            
+            // 設定對應tab為active
+            event.target.classList.add('active');
+            
+            // 更新當前區段索引
+            currentSection = sections.indexOf(sectionId);
+            updateProgress();
+        }
+
+        // 上一頁
+        function prevSection() {
+            if (currentSection > 0) {
+                currentSection--;
+                const sectionId = sections[currentSection];
+                showSectionById(sectionId);
+            }
+        }
+
+        // 下一頁
+        function nextSection() {
+            if (currentSection < sections.length - 1) {
+                currentSection++;
+                const sectionId = sections[currentSection];
+                showSectionById(sectionId);
+            }
+        }
+
+        // 通過ID顯示區段
+        function showSectionById(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            document.getElementById(sectionId).classList.add('active');
+            const tabButton = document.querySelector(`[onclick="showSection('${sectionId}')"]`);
+            if (tabButton) {
+                tabButton.classList.add('active');
+            }
+            updateProgress();
+        }
+
+        // 更新進度條
+        function updateProgress() {
+            const progress = ((currentSection + 1) / sections.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        // 新增場站
+        function addStation() {
+            if (stationCount >= 5) {
+                showMessage('最多只能新增5個場站', 'error');
+                return;
+            }
+            
+            stationCount++;
+            const container = document.getElementById('stationsContainer');
+            const newStation = document.createElement('div');
+            newStation.className = 'station-entry';
+            newStation.innerHTML = `
+                <h4>場站 ${stationCount}</h4>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label>場站名稱</label>
+                        <input type="text" class="station-name">
+                    </div>
+                    <div class="form-field">
+                        <label>停放面積 (平方公尺)</label>
+                        <input type="number" class="station-area">
+                    </div>
+                    <div class="form-field">
+                        <label>格位數</label>
+                        <input type="number" class="station-spaces" onchange="calculateParkingRatio()">
+                    </div>
+                </div>
+                <button type="button" class="btn btn-danger" onclick="removeStation(this)" style="margin-top: 10px;">移除場站</button>
+            `;
+            container.appendChild(newStation);
+        }
+
+        // 移除場站
+        function removeStation(button) {
+            if (stationCount <= 1) {
+                showMessage('至少需要保留一個場站', 'error');
+                return;
+            }
+            button.parentElement.remove();
+            stationCount--;
+            // 重新編號場站
+            const stations = document.querySelectorAll('.station-entry');
+            stations.forEach((station, index) => {
+                station.querySelector('h4').textContent = `場站 ${index + 1}`;
+            });
+            calculateParkingRatio();
+        }
+
+        // 計算停車格比例
+        function calculateParkingRatio() {
+            const totalVehicles = parseFloat(document.getElementById('totalVehicles').value) || 0;
+            const spaces = document.querySelectorAll('.station-spaces');
+            let totalSpaces = 0;
+            
+            spaces.forEach(space => {
+                totalSpaces += parseFloat(space.value) || 0;
+            });
+            
+            const ratio = totalVehicles > 0 ? (totalSpaces / totalVehicles * 100).toFixed(2) : 0;
+            document.getElementById('parkingRatio').textContent = `停車格數占總車數比例：${ratio}% (${totalSpaces}/${totalVehicles})`;
+        }
+
+        // 計算車輛類型分佈
+        function calculateEmissionRatio() {
+            const total = parseFloat(document.getElementById('totalVehiclesB3').value) || 0;
+            const diesel = parseFloat(document.getElementById('dieselVehicles').value) || 0;
+            const electric = parseFloat(document.getElementById('electricVehicles').value) || 0;
+            const hybrid = parseFloat(document.getElementById('hybridVehicles').value) || 0;
+            const gasoline = parseFloat(document.getElementById('gasolineVehicles').value) || 0;
+            const other = parseFloat(document.getElementById('otherVehicles').value) || 0;
+            
+            const sum = diesel + electric + hybrid + gasoline + other;
+            
+            if (total > 0 && sum > 0) {
+                document.getElementById('emissionRatio').innerHTML = `
+                    車輛類型分佈：<br>
+                    柴油車：${(diesel/total*100).toFixed(1)}% (${diesel}輛)<br>
+                    電動車：${(electric/total*100).toFixed(1)}% (${electric}輛)<br>
+                    油電混合：${(hybrid/total*100).toFixed(1)}% (${hybrid}輛)<br>
+                    汽油車：${(gasoline/total*100).toFixed(1)}% (${gasoline}輛)<br>
+                    其他：${(other/total*100).toFixed(1)}% (${other}輛)
+                `;
+            } else {
+                document.getElementById('emissionRatio').textContent = '車輛類型分佈：請輸入相關數據';
+            }
+        }
+
+        // 計算電動車比率
+        function calculateElectricRatio() {
+            const total = parseFloat(document.getElementById('totalVehiclesB7').value) || 0;
+            const electric = parseFloat(document.getElementById('electricVehiclesB7').value) || 0;
+            const ratio = total > 0 ? (electric / total * 100).toFixed(2) : 0;
+            document.getElementById('electricRatio').textContent = `電動車比率：${ratio}% (${electric}/${total})`;
+        }
+
+        // 計算肇事率
+        function calculateAccidentRate() {
+            const mileage = parseFloat(document.getElementById('totalMileage').value) || 0;
+            const a1 = parseFloat(document.getElementById('a1Accidents').value) || 0;
+            const a2 = parseFloat(document.getElementById('a2Accidents').value) || 0;
+            
+            if (mileage > 0) {
+                const rate = ((a1 + a2) / mileage * 100000).toFixed(3);
+                document.getElementById('accidentRate').textContent = `每十萬延車公里肇事率：${rate}次 (A1:${a1}次, A2:${a2}次)`;
+            } else {
+                document.getElementById('accidentRate').textContent = '每十萬延車公里肇事率：請輸入里程數';
+            }
+        }
+
+        // 計算違規率
+        function calculateViolationRate() {
+            const mileage = parseFloat(document.getElementById('totalMileage').value) || 0;
+            const violations = parseFloat(document.getElementById('trafficViolations').value) || 0;
+            
+            if (mileage > 0) {
+                const rate = (violations / mileage * 100000).toFixed(3);
+                document.getElementById('violationRate').textContent = `每十萬延車公里違規率：${rate}次`;
+            } else {
+                document.getElementById('violationRate').textContent = '每十萬延車公里違規率：請輸入里程數';
+            }
+        }
+
+        // 計算勞基法違規率
+        function calculateLaborViolationRate() {
+            const mileage = parseFloat(document.getElementById('totalMileageD10').value) || 0;
+            const violations = parseFloat(document.getElementById('laborViolations').value) || 0;
+            
+            if (mileage > 0) {
+                const rate = (violations / mileage * 100000).toFixed(3);
+                document.getElementById('laborViolationRate').textContent = `每十萬延車公里違反勞基法次數：${rate}次`;
+            } else {
+                document.getElementById('laborViolationRate').textContent = '每十萬延車公里違反勞基法次數：請輸入里程數';
+            }
+        }
+
+        // 計算無障礙車輛比率
+        function calculateAccessibleRatio() {
+            const total = parseFloat(document.getElementById('accessibleTotal').value) || 0;
+            const accessible = parseFloat(document.getElementById('accessibleVehicles').value) || 0;
+            const ratio = total > 0 ? (accessible / total * 100).toFixed(2) : 0;
+            document.getElementById('accessibleRatio').textContent = `無障礙公車占比：${ratio}% (${accessible}/${total})`;
+        }
+
+        // 計算改善比率
+        function calculateImprovementRatio() {
+            const prevStop = parseFloat(document.getElementById('prevStopDefects').value) || 0;
+            const improvedStop = parseFloat(document.getElementById('improvedStopDefects').value) || 0;
+            const prevVehicle = parseFloat(document.getElementById('prevVehicleDefects').value) || 0;
+            const improvedVehicle = parseFloat(document.getElementById('improvedVehicleDefects').value) || 0;
+            
+            const stopRatio = prevStop > 0 ? (improvedStop / prevStop * 100).toFixed(2) : 0;
+            const vehicleRatio = prevVehicle > 0 ? (improvedVehicle / prevVehicle * 100).toFixed(2) : 0;
+            
+            document.getElementById('improvementRatio').innerHTML = `
+                站牌缺失改善比率：${stopRatio}% (${improvedStop}/${prevStop})<br>
+                隨車設備缺失改善比率：${vehicleRatio}% (${improvedVehicle}/${prevVehicle})
+            `;
+        }
+
+        // 自動保存
+        function autoSave() {
+            saveProgress(true);
+        }
+
+        // 儲存進度
+        function saveProgress(isAuto = false) {
+            const formData = collectFormData();
+            
+            // 儲存到記憶體 (不使用localStorage)
+            window.savedFormData = formData;
+            
+            // 顯示成功訊息
+            if (!isAuto) {
+                showMessage('進度已儲存！', 'success');
+            }
+        }
+
+        // 載入進度
+        function loadProgress() {
+            if (window.savedFormData) {
+                const formData = window.savedFormData;
+                
+                // 恢復表單資料
+                Object.keys(formData).forEach(key => {
+                    if (key === 'stations') return; // 場站資料另外處理
+                    
+                    const element = document.getElementById(key);
+                    if (element) {
+                        if (element.type === 'checkbox') {
+                            element.checked = formData[key];
+                        } else {
+                            element.value = formData[key];
+                        }
+                    }
+                });
+                
+                // 恢復場站資料
+                if (formData.stations && formData.stations.length > 1) {
+                    // 移除預設場站外的其他場站
+                    const container = document.getElementById('stationsContainer');
+                    const stationEntries = container.querySelectorAll('.station-entry');
+                    for (let i = 1; i < stationEntries.length; i++) {
+                        stationEntries[i].remove();
+                    }
+                    
+                    // 重新添加場站
+                    stationCount = 1;
+                    for (let i = 1; i < formData.stations.length; i++) {
+                        addStation();
+                    }
+                    
+                    // 填入場站資料
+                    formData.stations.forEach((station, index) => {
+                        const stationEntry = container.children[index];
+                        if (stationEntry) {
+                            stationEntry.querySelector('.station-name').value = station.name || '';
+                            stationEntry.querySelector('.station-area').value = station.area || '';
+                            stationEntry.querySelector('.station-spaces').value = station.spaces || '';
+                        }
+                    });
+                }
+                
+                // 重新計算所有比率
+                recalculateAllRatios();
+                
+                // 觸發路線類型變更事件
+                const routeTypeSelect = document.getElementById('routeType');
+                if (routeTypeSelect.value) {
+                    routeTypeSelect.dispatchEvent(new Event('change'));
+                }
+            }
+        }
+
+        // 重新計算所有比率
+        function recalculateAllRatios() {
+            calculateParkingRatio();
+            calculateEmissionRatio();
+            calculateElectricRatio();
+            calculateAccidentRate();
+            calculateViolationRate();
+            calculateLaborViolationRate();
+            calculateAccessibleRatio();
+            calculateImprovementRatio();
+        }
+
+        // 提交表單
+        let lastSubmittedId = null;
+        async function submitForm() {
+            if (!validateForm()) return;
+            
+            const formData = collectFormData();
+            
+            // 顯示提交中的訊息
+            showMessage('正在提交表單...', 'success');
+            
+            try {
+                console.log('提交的資料:', formData); // 除錯用
+                
+                const response = await fetch('/api/save', {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(formData),
+                });
+                
+                console.log('回應狀態:', response.status); // 除錯用
+                console.log('回應 OK:', response.ok); // 除錯用
+                
+                // 檢查 HTTP 狀態碼
+                if (!response.ok) {
+                    // 嘗試獲取錯誤訊息
+                    let errorMessage = `HTTP ${response.status}`;
+                    try {
+                        const errorData = await response.text();
+                        console.log('錯誤回應內容:', errorData); // 除錯用
+                        
+                        // 嘗試解析為 JSON
+                        try {
+                            const errorJson = JSON.parse(errorData);
+                            errorMessage = errorJson.message || errorJson.error || errorMessage;
+                        } catch {
+                            // 如果不是 JSON，使用文字內容
+                            errorMessage = errorData || errorMessage;
+                        }
+                    } catch {
+                        // 無法讀取錯誤內容
+                    }
+                    
+                    throw new Error(errorMessage);
+                }
+                
+                // 處理成功回應
+                let result = {};
+                const contentType = response.headers.get('content-type');
+                
+                if (contentType && contentType.includes('application/json')) {
+                    // 如果是 JSON 回應
+                    result = await response.json();
+                } else if (response.status !== 204) {
+                    // 如果不是 No Content，嘗試讀取文字
+                    const textResult = await response.text();
+                    console.log('文字回應:', textResult);
+                    
+                    // 嘗試解析為 JSON
+                    try {
+                        result = JSON.parse(textResult);
+                    } catch {
+                        result = { message: textResult };
+                    }
+                }
+                
+                console.log('成功結果:', result); // 除錯用
+                
+                // 獲取 ID
+                const id = result.id || result.dataId || result.uuid || generateTempId();
+                
+                if (id) {
+                    window.lastSubmitId = id;
+                    if (typeof(Storage) !== "undefined") {
+                        sessionStorage.setItem('lastSubmitId', id);
+                    }
+                }
+                
+                // 清除草稿
+                delete window.savedFormData;
+                if (typeof(Storage) !== "undefined") {
+                    localStorage.removeItem('formData');
+                }
+                
+                // 顯示成功訊息
+                showMessage(`提交成功！${id ? `資料 ID：${id}` : ''}`, 'success');
+                
+                // 啟用匯出按鈕
+                const exportBtn = document.querySelector('[onclick="exportExcel()"]');
+                if (exportBtn) {
+                    exportBtn.disabled = false;
+                }
+                
+            } catch (error) {
+                console.error('提交錯誤:', error); // 除錯用
+                
+                // 根據錯誤類型顯示不同訊息
+                let errorMessage = '提交失敗，請稍後再試';
+                
+                if (error.message.includes('Failed to fetch')) {
+                    errorMessage = '網路連線錯誤，請檢查網路後重試';
+                } else if (error.message.includes('NetworkError')) {
+                    errorMessage = '網路錯誤，請檢查連線';
+                } else if (error.message.includes('HTTP 500')) {
+                    errorMessage = '伺服器內部錯誤，但資料可能已儲存，請聯繫系統管理員';
+                } else if (error.message.includes('HTTP 400')) {
+                    errorMessage = '資料格式錯誤，請檢查填寫內容';
+                } else if (error.message.includes('HTTP 404')) {
+                    errorMessage = 'API 端點未找到，請聯繫系統管理員';
+                } else if (error.message && error.message !== 'undefined') {
+                    errorMessage = `提交失敗：${error.message}`;
+                }
+                
+                showMessage(errorMessage, 'error');
+                
+                // 如果可能是成功但回應格式問題，給予提示
+                if (error.message.includes('HTTP 500') || error.message.includes('SyntaxError')) {
+                    setTimeout(() => {
+                        showMessage('如果看到此訊息，請檢查資料庫是否已有您的資料', 'success');
+                    }, 3000);
+                }
+            }
+        }
+
+        // 生成臨時 ID 的輔助函數
+        function generateTempId() {
+            return 'temp_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        }
+
+        // 改進的錯誤訊息顯示函數
+        function showMessage(message, type, duration = 5000) {
+            // 移除現有訊息
+            const existingMessage = document.querySelector('.message');
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.innerHTML = message;
+            
+            // 添加關閉按鈕
+            const closeBtn = document.createElement('span');
+            closeBtn.innerHTML = '&times;';
+            closeBtn.style.cssText = `
+                float: right;
+                cursor: pointer;
+                font-size: 20px;
+                font-weight: bold;
+                margin-left: 10px;
+            `;
+            closeBtn.onclick = () => messageDiv.remove();
+            messageDiv.appendChild(closeBtn);
+            
+            document.body.appendChild(messageDiv);
+            
+            // 自動移除訊息
+            setTimeout(() => {
+                if (messageDiv.parentNode) {
+                    messageDiv.remove();
+                }
+            }, duration);
+        }
+
+        // 除錯模式：檢查後端 API 狀態
+        async function checkApiStatus() {
+            try {
+                const response = await fetch('/api/status', {
+                    method: 'GET',
+                    headers: { 'Accept': 'application/json' }
+                });
+                
+                console.log('API 狀態檢查:', {
+                    status: response.status,
+                    ok: response.ok,
+                    headers: [...response.headers.entries()]
+                });
+                
+                const text = await response.text();
+                console.log('API 回應內容:', text);
+                
+            } catch (error) {
+                console.log('API 狀態檢查失敗:', error);
+            }
+        }
+
+        // 在頁面載入時檢查 API 狀態（除錯用）
+        document.addEventListener('DOMContentLoaded', function() {
+            // 只在開發環境執行
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                checkApiStatus();
+            }
+        });
+
+    
+
+        // 表單驗證
+        function validateForm() {
+            const requiredFields = ['companyName', 'fillPerson', 'fillDate', 'totalVehicles'];
+            let isValid = true;
+            let errorMessages = [];
+            
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (!field.value.trim()) {
+                    field.style.borderColor = '#dc3545';
+                    errorMessages.push(`請填寫 ${field.previousElementSibling.textContent}`);
+                    isValid = false;
+                } else {
+                    field.style.borderColor = '#dee2e6';
+                }
+            });
+            
+            // 檢查數值合理性
+            const totalVehicles = parseFloat(document.getElementById('totalVehicles').value) || 0;
+            if (totalVehicles <= 0) {
+                errorMessages.push('總車輛數必須大於0');
+                isValid = false;
+            }
+            
+            // 檢查場站格位數總和
+            const spaces = document.querySelectorAll('.station-spaces');
+            let totalSpaces = 0;
+            spaces.forEach(space => {
+                totalSpaces += parseFloat(space.value) || 0;
+            });
+            
+            if (totalSpaces > totalVehicles * 2) {
+                errorMessages.push('停車格位數似乎過多，請檢查是否正確');
+            }
+            
+            if (!isValid) {
+                showMessage(errorMessages.join('<br>'), 'error');
+            }
+            
+            return isValid;
+        }
+
+        // 收集表單資料
+        function collectFormData() {
+        const formData = {};
+
+        // 1. 收集所有輸入元件
+        const inputs = document.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            // 2. **排除沒有 id 的元素，避免產生 "" 欄位**
+            if (!input.id) return;
+
+            // 3. 依元件型別寫入值
+            formData[input.id] =
+                input.type === 'checkbox' ? input.checked : input.value;
+        });
+
+            
+            // 收集場站資料
+            const stations = [];
+            document.querySelectorAll('.station-entry').forEach((station, index) => {
+                stations.push({
+                    name: station.querySelector('.station-name').value,
+                    area: station.querySelector('.station-area').value,
+                    spaces: station.querySelector('.station-spaces').value
+                });
+            });
+            formData.stations = stations;
+            
+            // 添加時間戳記
+            formData.lastModified = new Date().toISOString();
+            
+            return formData;
+        }
+
+        // Excel 匯出功能
+// ------------------------------
+        async function exportExcel () {
+        // 1. 先確認已成功提交，並且 submitForm() 有把 ID 存到全域
+        const id = window.lastSubmitId;       // submitForm 成功時請加：window.lastSubmitId = result.id;
+        if (!id) {
+            alert('請先提交表單，才可以匯出 Excel！');
+            return;
+        }
+
+        // 2. 呼叫後端 /api/export?id=...
+        const res = await fetch(`/api/export?id=${id}`);
+        if (!res.ok) {
+            alert('匯出失敗，請稍後再試');
+            return;
+        }
+        const blob = await res.blob();
+
+        // 3. 生成下載連結並自動點擊
+        const url = URL.createObjectURL(blob);
+        const a   = document.createElement('a');
+        a.href = url;
+        a.download = `evaluation_${id}.xlsx`;
+        a.click();
+        URL.revokeObjectURL(url);
+        }
+
+        // 匯出資料
+        function exportData() {
+            const formData = collectFormData();
+            
+            // 創建可下載的JSON檔案
+            const dataStr = JSON.stringify(formData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = `桃園市公車評鑑資料_${formData.companyName || '未命名'}_${new Date().toISOString().split('T')[0]}.json`;
+            
+            // 創建並點擊下載連結
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showMessage('資料匯出成功！', 'success');
+        }
+
+        // 重置表單
+        function resetForm() {
+            if (!confirm('確定要重置表單嗎？所有已填寫的資料將會遺失。')) {
+                return;
+            }
+            
+            // 重置所有表單欄位
+            const inputs = document.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                if (input.type === 'checkbox') {
+                    input.checked = false;
+                } else if (input.type === 'date') {
+                    input.value = new Date().toISOString().split('T')[0];
+                } else {
+                    input.value = '';
+                }
+            });
+            
+            // 重置場站為預設狀態
+            const container = document.getElementById('stationsContainer');
+            container.innerHTML = `
+                <div class="station-entry">
+                    <h4>場站 1</h4>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label>場站名稱</label>
+                            <input type="text" class="station-name">
+                        </div>
+                        <div class="form-field">
+                            <label>停放面積 (平方公尺)</label>
+                            <input type="number" class="station-area">
+                        </div>
+                        <div class="form-field">
+                            <label>格位數</label>
+                            <input type="number" class="station-spaces" onchange="calculateParkingRatio()">
+                        </div>
+                    </div>
+                </div>
+            `;
+            stationCount = 1;
+            
+            // 重置路線類型相關顯示
+            document.getElementById('otherRouteFields').style.display = 'none';
+            
+            // 清除已保存的資料
+            delete window.savedFormData;
+            
+            // 重新計算所有比率
+            recalculateAllRatios();
+            
+            // 回到第一頁
+            currentSection = 0;
+            showSectionById('basic');
+            
+            showMessage('表單已重置！', 'success');
+        }
+
+        // 顯示訊息
+        function showMessage(message, type) {
+            // 移除現有訊息
+            const existingMessage = document.querySelector('.message');
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.innerHTML = message;
+            
+            document.body.appendChild(messageDiv);
+            
+            // 3秒後自動移除訊息
+            setTimeout(() => {
+                if (messageDiv.parentNode) {
+                    messageDiv.remove();
+                }
+            }, 3000);
+        }
+
+        // 匯入資料功能
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        try {
+                            const importedData = JSON.parse(e.target.result);
+                            
+                            if (!confirm('確定要匯入資料嗎？這將覆蓋目前所有資料。')) {
+                                return;
+                            }
+                            
+                            // 儲存匯入的資料
+                            window.savedFormData = importedData;
+                            
+                            // 載入資料
+                            loadProgress();
+                            
+                            showMessage('資料匯入成功！', 'success');
+                        } catch (error) {
+                            showMessage('檔案格式錯誤，請選擇有效的JSON檔案。', 'error');
+                        }
+                    };
+                    reader.readAsText(file);
+                }
+            };
+            input.click();
+        }
+
+        // 列印功能
+        function printForm() {
+            const formData = collectFormData();
+            const printWindow = window.open('', '_blank');
+            
+            const printContent = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>桃園市公車營運評鑑填報資料</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 20px; }
+                        .header { text-align: center; margin-bottom: 30px; }
+                        .section { margin-bottom: 25px; }
+                        .section h2 { color: #2193b0; border-bottom: 2px solid #2193b0; padding-bottom: 5px; }
+                        .field { margin: 10px 0; }
+                        .field label { font-weight: bold; }
+                        .checkbox-list { margin-left: 20px; }
+                        @media print { body { margin: 0; } }
+                    </style>
+                </head>
+                <body>
+                    <div class="header">
+                        <h1>114年度桃園市市區汽車客運營運與服務評鑑</h1>
+                        <h2>書面資料審查填報資料</h2>
+                        <p>填報日期：${formData.fillDate || '未填寫'}</p>
+                    </div>
+                    
+                    <div class="section">
+                        <h2>基本資料</h2>
+                        <div class="field"><label>公司名稱：</label>${formData.companyName || ''}</div>
+                        <div class="field"><label>填寫人員：</label>${formData.fillPerson || ''}</div>
+                        <div class="field"><label>總車輛數：</label>${formData.totalVehicles || ''}</div>
+                    </div>
+                    
+                    ${generatePrintSections(formData)}
+                    
+                    <div style="margin-top: 50px; text-align: center; color: #666;">
+                        <p>此表單由桃園市公車營運評鑑填報系統產生</p>
+                        <p>產生時間：${new Date().toLocaleString('zh-TW')}</p>
+                    </div>
+                </body>
+                </html>
+            `;
+            
+            printWindow.document.write(printContent);
+            printWindow.document.close();
+            printWindow.print();
+        }
+
+        // 產生列印用的區段內容
+        function generatePrintSections(formData) {
+            let content = '';
+            
+            // 場站資料
+            if (formData.stations && formData.stations.length > 0) {
+                content += '<div class="section"><h2>場站資料</h2>';
+                formData.stations.forEach((station, index) => {
+                    if (station.name || station.area || station.spaces) {
+                        content += `
+                            <div class="field">
+                                <label>場站 ${index + 1}：</label>
+                                ${station.name || '未命名'} 
+                                (面積：${station.area || '0'}平方公尺, 格位：${station.spaces || '0'}個)
+                            </div>
+                        `;
+                    }
+                });
+                content += '</div>';
+            }
+            
+            // 其他重要數據
+            const importantFields = [
+                { key: 'avgAge', label: '平均車齡', unit: '年' },
+                { key: 'electricVehiclesB7', label: '電動車數量', unit: '輛' },
+                { key: 'totalMileage', label: '期間總里程數', unit: '公里' },
+                { key: 'a1Accidents', label: 'A1事故件數', unit: '次' },
+                { key: 'a2Accidents', label: 'A2事故件數', unit: '次' },
+                { key: 'trafficViolations', label: '交通違規件數', unit: '次' }
+            ];
+            
+            content += '<div class="section"><h2>重要統計數據</h2>';
+            importantFields.forEach(field => {
+                if (formData[field.key]) {
+                    content += `<div class="field"><label>${field.label}：</label>${formData[field.key]} ${field.unit}</div>`;
+                }
+            });
+            content += '</div>';
+            
+            return content;
+        }
+
+        // 鍵盤快捷鍵
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey) {
+                switch(e.key) {
+                    case 's':
+                        e.preventDefault();
+                        saveProgress();
+                        break;
+                    case 'p':
+                        e.preventDefault();
+                        printForm();
+                        break;
+                    case 'ArrowLeft':
+                        e.preventDefault();
+                        prevSection();
+                        break;
+                    case 'ArrowRight':
+                        e.preventDefault();
+                        nextSection();
+                        break;
+                }
+            }
+        });
+
+        // 添加快捷鍵提示
+        function showShortcuts() {
+            const shortcuts = `
+                <div style="font-size: 14px; line-height: 1.6;">
+                    <strong>鍵盤快捷鍵：</strong><br>
+                    Ctrl + S：儲存進度<br>
+                    Ctrl + P：列印表單<br>
+                    Ctrl + ←：上一頁<br>
+                    Ctrl + →：下一頁
+                </div>
+            `;
+            showMessage(shortcuts, 'success');
+        }
+
+        // 在頁面底部添加快捷鍵提示按鈕
+        window.onload = function() {
+            const helpButton = document.createElement('button');
+            helpButton.textContent = '?';
+            helpButton.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                left: 20px;
+                z-index: 1000;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: #2193b0;
+                color: white;
+                border: none;
+                font-size: 18px;
+                cursor: pointer;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            `;
+            helpButton.onclick = showShortcuts;
+            helpButton.title = '顯示鍵盤快捷鍵';
+            document.body.appendChild(helpButton);
+        };
+    </script>
+</body>
+</html>
