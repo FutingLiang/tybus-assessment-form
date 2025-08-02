@@ -1031,71 +1031,60 @@
     </div>
 
     <script>
-        let currentSection = 0;
-        const sections = ['basic', 'facilities', 'vehicles', 'safety', 'training', 'compliance', 'services'];
-        let stationCount = 1;
+       let currentSection = 0;
+      const sections = ['basic','facilities','vehicles','safety','training','compliance','services'];
+      let stationCount = 1;
 
-        // 初始化
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('fillDate').value = new Date().toISOString().split('T')[0];
-            loadProgress();
-            updateProgress();
-            
-            // 路線形式變更時顯示/隱藏欄位
-            document.getElementById('routeType').addEventListener('change', function() {
-                const otherFields = document.getElementById('otherRouteFields');
-                if (this.value === 'other') {
-                    otherFields.style.display = 'block';
-                } else {
-                    otherFields.style.display = 'none';
-                }
-            });
+      // 初始化
+      document.addEventListener('DOMContentLoaded', function() {
+          document.getElementById('fillDate').value = new Date().toISOString().split('T')[0];
+          loadProgress();
+          showSectionById('basic');  // 一進頁面就切到「基本資料」
+          updateProgress();
+          document.getElementById('routeType')?.addEventListener('change', function() {
+            document.getElementById('otherRouteFields').style.display =
+              this.value==='other' ? 'block' : 'none';
+          });
+          setInterval(autoSave,60000);
+      });
 
-            // 自動保存功能
-            setInterval(autoSave, 60000); // 每分鐘自動保存一次
-        });
+      // 切分頁
+      function showSection(id) {
+        document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+        document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        event.target.classList.add('active');
+        currentSection = sections.indexOf(id);
+        const btn = document.querySelector('[onclick="submitForm()"]');
+        if(btn) btn.className = id==='services'?'btn btn-success':'btn btn-secondary';
+        updateProgress();
+      }
+      function showSectionById(id) {
+        document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+        document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        const tab = document.querySelector(`[onclick="showSection('${id}')"]`);
+        if(tab) tab.classList.add('active');
+        const btn = document.querySelector('[onclick="submitForm()"]');
+        if(btn) btn.className = id==='services'?'btn btn-success':'btn btn-secondary';
+        updateProgress();
+      }
 
-        // 顯示指定區段
-        function showSection(sectionId) {
-            // 隱藏所有區段
-            document.querySelectorAll('.section').forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // 移除所有tab的active狀態
-            document.querySelectorAll('.nav-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // 顯示指定區段
-            document.getElementById(sectionId).classList.add('active');
-            
-            // 設定對應tab為active
-            event.target.classList.add('active');
-            
-            // 更新當前區段索引
-            currentSection = sections.indexOf(sectionId);
-            updateProgress();
-        }
+      // 上一／下一頁
+      function prevSection() {
+        if(currentSection>0) showSectionById(sections[--currentSection]);
+      }
+      function nextSection() {
+        if(currentSection<sections.length-1) showSectionById(sections[++currentSection]);
+      }
 
-        // 上一頁
-        function prevSection() {
-            if (currentSection > 0) {
-                currentSection--;
-                const sectionId = sections[currentSection];
-                showSectionById(sectionId);
-            }
-        }
+      // 更新進度條
+      function updateProgress() {
+        document.getElementById('progressFill').style.width =
+          ((currentSection+1)/sections.length*100)+'%';
+      }
 
-        // 下一頁
-        function nextSection() {
-            if (currentSection < sections.length - 1) {
-                currentSection++;
-                const sectionId = sections[currentSection];
-                showSectionById(sectionId);
-            }
-        }
-
+      
         // 通過ID顯示區段
         function showSectionById(sectionId) {
             document.querySelectorAll('.section').forEach(section => {
@@ -1111,9 +1100,21 @@
             if (tabButton) {
                 tabButton.classList.add('active');
             }
+            
+            // 更新按鈕顏色
+            const submitBtn = document.querySelector('[onclick="submitForm()"]');
+            if (submitBtn) {
+                if (sectionId === 'services') {
+                    // 最後一個選單，提交按鈕變綠色
+                    submitBtn.className = 'btn btn-success';
+                } else {
+                    // 其他選單，提交按鈕變灰色
+                    submitBtn.className = 'btn btn-secondary';
+                }
+            }
+            
             updateProgress();
         }
-
         // 更新進度條
         function updateProgress() {
             const progress = ((currentSection + 1) / sections.length) * 100;
