@@ -417,11 +417,11 @@
         </div>
 
         <div class="nav-tabs">
-            <button class="nav-tab active" onclick="showSection('categoryA')">A類項目</button>
-            <button class="nav-tab" onclick="showSection('categoryB')">B類項目</button>
-            <button class="nav-tab" onclick="showSection('categoryD')">D類項目</button>
-            <button class="nav-tab" onclick="showSection('categoryE')">E類項目</button>
-            <button class="nav-tab" onclick="showSection('categoryF')">F類項目</button>
+            <button class="nav-tab active" onclick="showSection(event, 'categoryA')">A場站設施與服務</button>
+            <button class="nav-tab" onclick="showSection(event, 'categoryB')">B運輸工具設備與安全</button>
+            <button class="nav-tab" onclick="showSection(event, 'categoryD')">D公司經營與管理</button>
+            <button class="nav-tab" onclick="showSection(event, 'categoryE')">E無障礙之場站設施、服務、運輸設備與安全</button>
+            <button class="nav-tab" onclick="showSection(event, 'categoryF')">F. 性別平等</button>
         </div>
 
         <div class="progress-bar">
@@ -480,14 +480,13 @@
                     
                     <button type="button" class="btn btn-secondary" onclick="addStation()">新增場站</button>
                     
-                    <div class="auto-calculate" id="parkingRatio">
-                        停車格數占總車數比例：計算中...
-                    </div>
+
                 </div>
             </div>
 
             <!-- B類項目 -->
             <div class="section" id="categoryB">
+                <!-- B1 -->
                 <div class="form-group">
                     <h3>(B1) 車齡比率</h3>
                     <div class="form-row">
@@ -508,58 +507,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <h3>(B4) 消防安全設施</h3>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="hasExtinguisherPhoto">
-                            <label for="hasExtinguisherPhoto">提供車輛內滅火器照片</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="extinguisherNormal">
-                            <label for="extinguisherNormal">滅火器均在有效期限內且壓力表正常</label>
-                        </div>
-                    </div>
-                    <div class="form-field">
-                        <label for="extinguisherIssue">滅火器異常原因 (如有)</label>
-                        <textarea id="extinguisherIssue" rows="3"></textarea>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <h3>(B6) 車輛維修保養制度及執行情形</h3>
-                    <div class="form-field">
-                        <label>車輛保養方法</label>
-                        <select id="maintenanceType">
-                            <option value="">請選擇</option>
-                            <option value="own">自有保養廠</option>
-                            <option value="outsource">委外保養</option>
-                        </select>
-                    </div>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="safetyCheckForm">
-                            <label for="safetyCheckForm">出車安全檢查表 - 資料完整</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="maintenanceRecord">
-                            <label for="maintenanceRecord">車輛各級保養紀錄卡 - 資料完整</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="maintenanceProcedure">
-                            <label for="maintenanceProcedure">一般保養程序規章 - 資料完整</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="partsInventory">
-                            <label for="partsInventory">車廠備料狀況 - 資料完整</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="certifiedTechnician">
-                            <label for="certifiedTechnician">合格專業技師/技工 - 資料完整</label>
-                        </div>
-                    </div>
-                </div>
-
+                <!-- B3 -->
                 <div class="form-group">
                     <h3>(B3) 排放廢氣品質</h3>
                     <div class="form-row">
@@ -600,52 +548,29 @@
                             <label for="gasolineEmissionTest">提供汽油車排氣定檢資料</label>
                         </div>
                     </div>
-                    <div class="auto-calculate" id="emissionRatio">
-                        車輛類型分佈：
-                    </div>
+
                 </div>
 
+                <!-- B4 -->
                 <div class="form-group">
-                    <h3>(B7) 電動車比率與購置</h3>
-                    <div class="form-row">
-                        <div class="form-field">
-                            <label for="totalVehiclesB7">市區公車營運路線總車輛數</label>
-                            <input type="number" id="totalVehiclesB7" onchange="calculateElectricRatio()">
-                        </div>
-                        <div class="form-field">
-                            <label for="electricVehiclesB7">電動車總車輛數</label>
-                            <input type="number" id="electricVehiclesB7" onchange="calculateElectricRatio()">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-field">
-                            <label for="purchasedElectric">評鑑期間內採購但未交車電動車數量</label>
-                            <input type="number" id="purchasedElectric">
-                        </div>
-                        <div class="form-field">
-                            <label for="unsuitableRoute">不適合使用電動車路線之車輛數</label>
-                            <input type="number" id="unsuitableRoute">
-                        </div>
-                    </div>
-                    <div class="auto-calculate" id="electricRatio">
-                        電動車比率：
-                    </div>
-                    
-                    <div class="section-divider"></div>
-                    
-                    <h4>電動車購置與汰換</h4>
+                    <h3>(B4) 消防安全設施</h3>
                     <div class="checkbox-group">
                         <div class="checkbox-item">
-                            <input type="checkbox" id="electricPurchaseData">
-                            <label for="electricPurchaseData">評鑑期間內電動車購置資料完整</label>
+                            <input type="checkbox" id="hasExtinguisherPhoto">
+                            <label for="hasExtinguisherPhoto">提供車輛內滅火器照片</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" id="vehicleReplacementData">
-                            <label for="vehicleReplacementData">評鑑期間內公車汰換資料完整</label>
+                            <input type="checkbox" id="extinguisherNormal">
+                            <label for="extinguisherNormal">滅火器均在有效期限內且壓力表正常</label>
                         </div>
+                    </div>
+                    <div class="form-field">
+                        <label for="extinguisherIssue">滅火器異常原因 (如有)</label>
+                        <textarea id="extinguisherIssue" rows="3"></textarea>
                     </div>
                 </div>
 
+                <!-- B5 -->
                 <div class="form-group">
                     <h3>(B5) 行車記錄器之設置與管理</h3>
                     <div class="form-field">
@@ -697,6 +622,80 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- B6 -->
+                <div class="form-group">
+                    <h3>(B6) 車輛維修保養制度及執行情形</h3>
+                    <div class="form-field">
+                        <label>車輛保養方法</label>
+                        <select id="maintenanceType">
+                            <option value="">請選擇</option>
+                            <option value="own">自有保養廠</option>
+                            <option value="outsource">委外保養</option>
+                        </select>
+                    </div>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="safetyCheckForm">
+                            <label for="safetyCheckForm">出車安全檢查表 - 資料完整</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="maintenanceRecord">
+                            <label for="maintenanceRecord">車輛各級保養紀錄卡 - 資料完整</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="maintenanceProcedure">
+                            <label for="maintenanceProcedure">一般保養程序規章 - 資料完整</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="partsInventory">
+                            <label for="partsInventory">車廠備料狀況 - 資料完整</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="certifiedTechnician">
+                            <label for="certifiedTechnician">合格專業技師/技工 - 資料完整</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- B7 -->
+                <div class="form-group">
+                    <h3>(B7) 電動車比率與購置</h3>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="totalVehiclesB7">市區公車營運路線總車輛數</label>
+                            <input type="number" id="totalVehiclesB7" onchange="calculateElectricRatio()">
+                        </div>
+                        <div class="form-field">
+                            <label for="electricVehiclesB7">電動車總車輛數</label>
+                            <input type="number" id="electricVehiclesB7" onchange="calculateElectricRatio()">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="purchasedElectric">評鑑期間內採購但未交車電動車數量</label>
+                            <input type="number" id="purchasedElectric">
+                        </div>
+                        <div class="form-field">
+                            <label for="unsuitableRoute">不適合使用電動車路線之車輛數</label>
+                            <input type="number" id="unsuitableRoute">
+                        </div>
+                    </div>
+
+                    <div class="section-divider"></div>
+
+                    <h4>電動車購置與汰換</h4>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="electricPurchaseData">
+                            <label for="electricPurchaseData">評鑑期間內電動車購置資料完整</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="vehicleReplacementData">
+                            <label for="vehicleReplacementData">評鑑期間內公車汰換資料完整</label>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- D類項目 -->
@@ -723,12 +722,8 @@
                             <input type="number" id="trafficViolations" onchange="calculateViolationRate()">
                         </div>
                     </div>
-                    <div class="auto-calculate" id="accidentRate">
-                        每十萬延車公里肇事率：
-                    </div>
-                    <div class="auto-calculate" id="violationRate">
-                        每十萬延車公里違規率：
-                    </div>
+
+
                 </div>
 
 
@@ -885,9 +880,6 @@
                             <input type="number" id="improvedVehicleDefects" onchange="calculateImprovementRatio()">
                         </div>
                     </div>
-                    <div class="auto-calculate" id="improvementRatio">
-                        改善比率：
-                    </div>
                 </div>
 
                 <div class="form-group">
@@ -895,15 +887,12 @@
                     <div class="form-row">
                         <div class="form-field">
                             <label for="totalMileageD10">期間總里程數 (公里)</label>
-                            <input type="number" id="totalMileageD10" onchange="calculateLaborViolationRate()">
+                            <input type="number" id="totalMileageD10">
                         </div>
                         <div class="form-field">
                             <label for="laborViolations">勞基法違規次數</label>
-                            <input type="number" id="laborViolations" onchange="calculateLaborViolationRate()">
+                            <input type="number" id="laborViolations">
                         </div>
-                    </div>
-                    <div class="auto-calculate" id="laborViolationRate">
-                        每十萬延車公里違反勞基法次數：
                     </div>
                 </div>
             </div>
@@ -922,9 +911,7 @@
                             <input type="number" id="accessibleVehicles" onchange="calculateAccessibleRatio()">
                         </div>
                     </div>
-                    <div class="auto-calculate" id="accessibleRatio">
-                        無障礙公車占比：
-                    </div>
+
                 </div>
             </div>
 
@@ -1044,11 +1031,12 @@
       });
 
       // 切分頁
-      function showSection(id) {
+      function showSection(evt, id) {
         document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
         document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
         document.getElementById(id).classList.add('active');
-        event.target.classList.add('active');
+        const el = evt && (evt.currentTarget || evt.target);
+        if (el && el.classList) el.classList.add('active');
         currentSection = sections.indexOf(id);
         const btn = document.querySelector('[onclick="submitForm()"]');
         if(btn) btn.className = id==='categoryF'?'btn btn-success':'btn btn-secondary';
@@ -1058,7 +1046,7 @@
         document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
         document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
         document.getElementById(id).classList.add('active');
-        const tab = document.querySelector(`[onclick="showSection('${id}')"]`);
+        const tab = document.querySelector(`[onclick="showSection(event, '${id}')"]`);
         if(tab) tab.classList.add('active');
         const btn = document.querySelector('[onclick="submitForm()"]');
         if(btn) btn.className = id==='categoryF'?'btn btn-success':'btn btn-secondary';
@@ -1080,41 +1068,7 @@
       }
 
       
-        // 通過ID顯示區段
-        function showSectionById(sectionId) {
-            document.querySelectorAll('.section').forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            document.querySelectorAll('.nav-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            document.getElementById(sectionId).classList.add('active');
-            const tabButton = document.querySelector(`[onclick="showSection('${sectionId}')"]`);
-            if (tabButton) {
-                tabButton.classList.add('active');
-            }
-            
-            // 更新按鈕顏色
-            const submitBtn = document.querySelector('[onclick="submitForm()"]');
-            if (submitBtn) {
-                if (sectionId === 'categoryF') {
-                    // 最後一個選單，提交按鈕變綠色
-                    submitBtn.className = 'btn btn-success';
-                } else {
-                    // 其他選單，提交按鈕變灰色
-                    submitBtn.className = 'btn btn-secondary';
-                }
-            }
-            
-            updateProgress();
-        }
-        // 更新進度條
-        function updateProgress() {
-            const progress = ((currentSection + 1) / sections.length) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
-        }
+        
 
         // 新增場站
         function addStation() {
