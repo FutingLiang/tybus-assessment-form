@@ -417,13 +417,11 @@
         </div>
 
         <div class="nav-tabs">
-            <button class="nav-tab active" onclick="showSection('basic')">基本資料</button>
-            <button class="nav-tab" onclick="showSection('facilities')">設施設備</button>
-            <button class="nav-tab" onclick="showSection('vehicles')">車輛管理</button>
-            <button class="nav-tab" onclick="showSection('safety')">安全管理</button>
-            <button class="nav-tab" onclick="showSection('training')">教育訓練</button>
-            <button class="nav-tab" onclick="showSection('compliance')">法規遵循</button>
-            <button class="nav-tab" onclick="showSection('services')">服務品質</button>
+            <button class="nav-tab active" onclick="showSection('categoryA')">A類項目</button>
+            <button class="nav-tab" onclick="showSection('categoryB')">B類項目</button>
+            <button class="nav-tab" onclick="showSection('categoryD')">D類項目</button>
+            <button class="nav-tab" onclick="showSection('categoryE')">E類項目</button>
+            <button class="nav-tab" onclick="showSection('categoryF')">F類項目</button>
         </div>
 
         <div class="progress-bar">
@@ -431,8 +429,8 @@
         </div>
 
         <div class="content">
-            <!-- 基本資料 -->
-            <div class="section active" id="basic">
+            <!-- A類項目 -->
+            <div class="section active" id="categoryA">
                 <div class="form-group">
                     <h3>公司基本資料</h3>
                     <div class="form-row">
@@ -488,8 +486,8 @@
                 </div>
             </div>
 
-            <!-- 設施設備 -->
-            <div class="section" id="facilities">
+            <!-- B類項目 -->
+            <div class="section" id="categoryB">
                 <div class="form-group">
                     <h3>(B1) 車齡比率</h3>
                     <div class="form-row">
@@ -561,10 +559,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- 車輛管理 -->
-            <div class="section" id="vehicles">
                 <div class="form-group">
                     <h3>(B3) 排放廢氣品質</h3>
                     <div class="form-row">
@@ -606,7 +601,7 @@
                         </div>
                     </div>
                     <div class="auto-calculate" id="emissionRatio">
-                        車輛類型分佈：計算中...
+                        車輛類型分佈：
                     </div>
                 </div>
 
@@ -633,7 +628,7 @@
                         </div>
                     </div>
                     <div class="auto-calculate" id="electricRatio">
-                        電動車比率：計算中...
+                        電動車比率：
                     </div>
                     
                     <div class="section-divider"></div>
@@ -648,39 +643,6 @@
                             <input type="checkbox" id="vehicleReplacementData">
                             <label for="vehicleReplacementData">評鑑期間內公車汰換資料完整</label>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 安全管理 -->
-            <div class="section" id="safety">
-                <div class="form-group">
-                    <h3>(D2) 交通違規及行車肇事率</h3>
-                    <div class="form-row">
-                        <div class="form-field">
-                            <label for="totalMileage">期間總里程數 (公里)</label>
-                            <input type="number" id="totalMileage" onchange="calculateAccidentRate()">
-                        </div>
-                        <div class="form-field">
-                            <label for="a1Accidents">A1事故件數</label>
-                            <input type="number" id="a1Accidents" onchange="calculateAccidentRate()">
-                        </div>
-                        <div class="form-field">
-                            <label for="a2Accidents">A2事故件數</label>
-                            <input type="number" id="a2Accidents" onchange="calculateAccidentRate()">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-field">
-                            <label for="trafficViolations">交通違規被舉發件數</label>
-                            <input type="number" id="trafficViolations" onchange="calculateViolationRate()">
-                        </div>
-                    </div>
-                    <div class="auto-calculate" id="accidentRate">
-                        每十萬延車公里肇事率：計算中...
-                    </div>
-                    <div class="auto-calculate" id="violationRate">
-                        每十萬延車公里違規率：計算中...
                     </div>
                 </div>
 
@@ -735,24 +697,64 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- D類項目 -->
+            <div class="section" id="categoryD">
+                <div class="form-group">
+                    <h3>(D2) 交通違規及行車肇事率</h3>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="totalMileage">期間總里程數 (公里)</label>
+                            <input type="number" id="totalMileage" onchange="calculateAccidentRate()">
+                        </div>
+                        <div class="form-field">
+                            <label for="a1Accidents">A1事故件數</label>
+                            <input type="number" id="a1Accidents" onchange="calculateAccidentRate()">
+                        </div>
+                        <div class="form-field">
+                            <label for="a2Accidents">A2事故件數</label>
+                            <input type="number" id="a2Accidents" onchange="calculateAccidentRate()">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="trafficViolations">交通違規被舉發件數</label>
+                            <input type="number" id="trafficViolations" onchange="calculateViolationRate()">
+                        </div>
+                    </div>
+                    <div class="auto-calculate" id="accidentRate">
+                        每十萬延車公里肇事率：
+                    </div>
+                    <div class="auto-calculate" id="violationRate">
+                        每十萬延車公里違規率：
+                    </div>
+                </div>
+
+
 
                 <div class="form-group">
-                    <h3>(D8) 公司行車安全制度之完整性與落實程度</h3>
+                    <h3>(D4) 政策配合</h3>
                     <div class="checkbox-group">
                         <div class="checkbox-item">
-                            <input type="checkbox" id="driverMentalManagement">
-                            <label for="driverMentalManagement">駕駛員身心管理制度 - 資料完整</label>
+                            <input type="checkbox" id="intersectionTraining">
+                            <label for="intersectionTraining">路口停讓教育訓練 - 有佐證資料</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" id="drivingInspection">
-                            <label for="drivingInspection">行車稽查管理作業 - 資料完整</label>
+                            <input type="checkbox" id="intersectionExecution">
+                            <label for="intersectionExecution">路口停讓執行狀況 - 有佐證資料</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="innovativeService">
+                            <label for="innovativeService">創新服務項目 - 有佐證資料</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="newRoutes">
+                            <label for="newRoutes">公車新闢或試辦路線 - 有佐證資料</label>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- 教育訓練 -->
-            <div class="section" id="training">
                 <div class="form-group">
                     <h3>(D5) 人員管理與教育訓練</h3>
                     
@@ -832,10 +834,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- 法規遵循 -->
-            <div class="section" id="compliance">
                 <div class="form-group">
                     <h3>(D7) 保險狀況</h3>
                     <div class="checkbox-group">
@@ -847,6 +846,47 @@
                             <input type="checkbox" id="thirdPartyInsurance">
                             <label for="thirdPartyInsurance">第三人責任險投保 - 資料完整</label>
                         </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>(D8) 公司行車安全制度之完整性與落實程度</h3>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="driverMentalManagement">
+                            <label for="driverMentalManagement">駕駛員身心管理制度 - 資料完整</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="drivingInspection">
+                            <label for="drivingInspection">行車稽查管理作業 - 資料完整</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>(D9) 前期缺失改善情形</h3>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="prevStopDefects">前期站牌相關缺失項目</label>
+                            <input type="number" id="prevStopDefects" onchange="calculateImprovementRatio()">
+                        </div>
+                        <div class="form-field">
+                            <label for="improvedStopDefects">已改善站牌缺失項目</label>
+                            <input type="number" id="improvedStopDefects" onchange="calculateImprovementRatio()">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="prevVehicleDefects">前期隨車調查設備相關缺失項目</label>
+                            <input type="number" id="prevVehicleDefects" onchange="calculateImprovementRatio()">
+                        </div>
+                        <div class="form-field">
+                            <label for="improvedVehicleDefects">已改善隨車設備缺失項目</label>
+                            <input type="number" id="improvedVehicleDefects" onchange="calculateImprovementRatio()">
+                        </div>
+                    </div>
+                    <div class="auto-calculate" id="improvementRatio">
+                        改善比率：
                     </div>
                 </div>
 
@@ -863,9 +903,33 @@
                         </div>
                     </div>
                     <div class="auto-calculate" id="laborViolationRate">
-                        每十萬延車公里違反勞基法次數：計算中...
+                        每十萬延車公里違反勞基法次數：
                     </div>
                 </div>
+            </div>
+
+            <!-- E類項目 -->
+            <div class="section" id="categoryE">
+                <div class="form-group">
+                    <h3>(E3) 無障礙運輸工具</h3>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="accessibleTotal">不含山區/高快速路線及中小型巴士之總車輛數</label>
+                            <input type="number" id="accessibleTotal" onchange="calculateAccessibleRatio()">
+                        </div>
+                        <div class="form-field">
+                            <label for="accessibleVehicles">無障礙車輛數量(含低地板公車及具備升降設備公車)</label>
+                            <input type="number" id="accessibleVehicles" onchange="calculateAccessibleRatio()">
+                        </div>
+                    </div>
+                    <div class="auto-calculate" id="accessibleRatio">
+                        無障礙公車占比：
+                    </div>
+                </div>
+            </div>
+
+            <!-- F類項目 -->
+            <div class="section" id="categoryF">
 
                 <div class="form-group">
                     <h3>(F1) 性別平等法令規範</h3>
@@ -950,75 +1014,6 @@
                 </div>
             </div>
 
-            <!-- 服務品質 -->
-            <div class="section" id="services">
-                <div class="form-group">
-                    <h3>(E3) 無障礙運輸工具</h3>
-                    <div class="form-row">
-                        <div class="form-field">
-                            <label for="accessibleTotal">不含山區/高快速路線及中小型巴士之總車輛數</label>
-                            <input type="number" id="accessibleTotal" onchange="calculateAccessibleRatio()">
-                        </div>
-                        <div class="form-field">
-                            <label for="accessibleVehicles">無障礙車輛數量(含低地板公車及具備升降設備公車)</label>
-                            <input type="number" id="accessibleVehicles" onchange="calculateAccessibleRatio()">
-                        </div>
-                    </div>
-                    <div class="auto-calculate" id="accessibleRatio">
-                        無障礙公車占比：計算中...
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <h3>(D4) 政策配合</h3>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="intersectionTraining">
-                            <label for="intersectionTraining">路口停讓教育訓練 - 有佐證資料</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="intersectionExecution">
-                            <label for="intersectionExecution">路口停讓執行狀況 - 有佐證資料</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="innovativeService">
-                            <label for="innovativeService">創新服務項目 - 有佐證資料</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="newRoutes">
-                            <label for="newRoutes">公車新闢或試辦路線 - 有佐證資料</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <h3>(D9) 前期缺失改善情形</h3>
-                    <div class="form-row">
-                        <div class="form-field">
-                            <label for="prevStopDefects">前期站牌相關缺失項目</label>
-                            <input type="number" id="prevStopDefects" onchange="calculateImprovementRatio()">
-                        </div>
-                        <div class="form-field">
-                            <label for="improvedStopDefects">已改善站牌缺失項目</label>
-                            <input type="number" id="improvedStopDefects" onchange="calculateImprovementRatio()">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-field">
-                            <label for="prevVehicleDefects">前期隨車調查設備相關缺失項目</label>
-                            <input type="number" id="prevVehicleDefects" onchange="calculateImprovementRatio()">
-                        </div>
-                        <div class="form-field">
-                            <label for="improvedVehicleDefects">已改善隨車設備缺失項目</label>
-                            <input type="number" id="improvedVehicleDefects" onchange="calculateImprovementRatio()">
-                        </div>
-                    </div>
-                    <div class="auto-calculate" id="improvementRatio">
-                        改善比率：計算中...
-                    </div>
-                </div>
-            </div>
-
             <div class="buttons">
                 <button type="button" class="btn btn-primary" onclick="prevSection()">上一頁</button>
                 <button type="button" class="btn btn-primary" onclick="nextSection()">下一頁</button>
@@ -1032,14 +1027,14 @@
 
     <script>
        let currentSection = 0;
-      const sections = ['basic','facilities','vehicles','safety','training','compliance','services'];
+       const sections = ['categoryA','categoryB','categoryD','categoryE','categoryF'];
       let stationCount = 1;
 
       // 初始化
       document.addEventListener('DOMContentLoaded', function() {
           document.getElementById('fillDate').value = new Date().toISOString().split('T')[0];
           loadProgress();
-          showSectionById('basic');  // 一進頁面就切到「基本資料」
+           showSectionById('categoryA');  // 一進頁面就切到「A類項目」
           updateProgress();
           document.getElementById('routeType')?.addEventListener('change', function() {
             document.getElementById('otherRouteFields').style.display =
@@ -1056,7 +1051,7 @@
         event.target.classList.add('active');
         currentSection = sections.indexOf(id);
         const btn = document.querySelector('[onclick="submitForm()"]');
-        if(btn) btn.className = id==='services'?'btn btn-success':'btn btn-secondary';
+        if(btn) btn.className = id==='categoryF'?'btn btn-success':'btn btn-secondary';
         updateProgress();
       }
       function showSectionById(id) {
@@ -1066,7 +1061,7 @@
         const tab = document.querySelector(`[onclick="showSection('${id}')"]`);
         if(tab) tab.classList.add('active');
         const btn = document.querySelector('[onclick="submitForm()"]');
-        if(btn) btn.className = id==='services'?'btn btn-success':'btn btn-secondary';
+        if(btn) btn.className = id==='categoryF'?'btn btn-success':'btn btn-secondary';
         updateProgress();
       }
 
@@ -1104,7 +1099,7 @@
             // 更新按鈕顏色
             const submitBtn = document.querySelector('[onclick="submitForm()"]');
             if (submitBtn) {
-                if (sectionId === 'services') {
+                if (sectionId === 'categoryF') {
                     // 最後一個選單，提交按鈕變綠色
                     submitBtn.className = 'btn btn-success';
                 } else {
@@ -1598,6 +1593,20 @@
             if (totalSpaces > totalVehicles * 2) {
                 errorMessages.push('停車格位數似乎過多，請檢查是否正確');
             }
+            
+            // 檢查下拉選單是否還是預設值「請選擇」
+            const dropdowns = document.querySelectorAll('select');
+            dropdowns.forEach(dropdown => {
+                if (dropdown.value === '' || dropdown.value === '請選擇') {
+                    dropdown.style.borderColor = '#dc3545';
+                    const label = dropdown.previousElementSibling;
+                    const labelText = label ? label.textContent.replace('*', '').trim() : '下拉選單';
+                    errorMessages.push(`請選擇 ${labelText}`);
+                    isValid = false;
+                } else {
+                    dropdown.style.borderColor = '#dee2e6';
+                }
+            });
             
             if (!isValid) {
                 showMessage(errorMessages.join('<br>'), 'error');
