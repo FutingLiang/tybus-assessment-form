@@ -693,6 +693,42 @@
             font-size: 1.2rem;
         }
 
+        .evaluation-title {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border: 1px solid #90caf9;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 20px 0;
+            border-left: 5px solid #2196f3;
+            box-shadow: 0 2px 8px rgba(33, 150, 243, 0.15);
+        }
+
+        .evaluation-title h4 {
+            color: #1565c0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .accident-section-title {
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+            border: 1px solid #ef9a9a;
+            border-radius: 12px;
+            padding: 14px 18px;
+            margin: 25px 0 20px 0;
+            border-left: 5px solid #f44336;
+            box-shadow: 0 2px 8px rgba(244, 67, 54, 0.15);
+        }
+
+        .accident-section-title h4 {
+            color: #c62828;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+            line-height: 1.4;
+        }
+
         /* 成功提交彈窗樣式 */
         .success-modal {
             position: fixed;
@@ -1207,7 +1243,9 @@
                 <div class="form-group">
                     <h3>(D2-1) 評分及獎懲標準</h3>
                     
-                    <h4>評分項目：評估113.11.01~114.10.31期間內百萬車公里肇事率及交通違規見聞率暨發生</h4>
+                    <div class="evaluation-title">
+                        <h4>📊 評分項目：評估113.11.01~114.10.31期間內百萬車公里肇事率及交通違規見聞率暨發生</h4>
+                    </div>
                     
                     <div class="form-row">
                         <div class="form-field">
@@ -1216,7 +1254,9 @@
                         </div>
                     </div>
 
-                    <h4>行車肇事(發生A1、A2事故件數)</h4>
+                    <div class="accident-section-title">
+                        <h4>🚨 行車肇事(發生A1、A2事故件數)</h4>
+                    </div>
                     <div class="form-row">
                         <div class="form-field">
                             <label for="a1AccidentsD2">A1：</label>
@@ -1228,42 +1268,15 @@
                         </div>
                     </div>
 
-                    <div class="scoring-criteria">
-                        <h5>肇事率評分標準：</h5>
-                        <div class="criteria-list">
-                            <div>(1) 重大肇事(A1)次數≦0 次：得 4 點</div>
-                            <div>(2) A2 合計次數=0 次：不予計點</div>
-                            <div>(3) 0 次&lt;A2 合計次數≦0.3 次：得 1 點</div>
-                            <div>(4) 0.3&lt;A2 合計次數 ≦0.6 次：得 2 點</div>
-                            <div>(5) 0.6&lt;A2 合計次數≦1 次：得 3 點</div>
-                            <div>(6) A2 合計次數&gt;1 次：得 4 點</div>
-                            <div>※備註：各業者之百萬車公里肇事率計算公式為：肇事件數÷0 式計算 A2 次數</div>
-                            <div>※備註：若發生(1)重大肇事件數&gt;0 式計算不予計算 A2 次數</div>
-                        </div>
-                    </div>
+
                 </div>
 
                 <div class="form-group">
                     <h3>(D2-2) 評分及獎懲標準</h3>
                     
-                    <div class="form-row">
-                        <div class="form-field">
-                            <label for="trafficViolationsD2">2. A1、A2 事故件數</label>
-                            <input type="number" id="trafficViolationsD2" placeholder="件" onchange="calculateD2Rates()">
-                        </div>
-                    </div>
 
-                    <div class="scoring-criteria">
-                        <h5>交通違規-違反道路交通處罰條例有關駕駛法令且經時報暨發生：且主管機關公告</h5>
-                        <h5>交通違規舉發暨發生率：</h5>
-                        <div class="criteria-list">
-                            <div>(1) 違規次數=0 次：得 4 點</div>
-                            <div>(2) 0 次&lt;違規次數 ≦0.3 次：得 3 點</div>
-                            <div>(3) 0.3 次&lt;違規次數≦0.6 次：得 2 點</div>
-                            <div>(4) 0.6 次&lt;違規次數≦1 次：得 1 點</div>
-                            <div>(5) 違規次數&gt;1 次：不予計點</div>
-                        </div>
-                    </div>
+
+
 
                     <div class="form-row">
                         <div class="form-field">
