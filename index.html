@@ -596,6 +596,103 @@
             margin-top: 3px;
         }
 
+        .checkbox-options {
+            margin-left: 25px;
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 3px solid #2193b0;
+        }
+
+        .checkbox-options label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #495057;
+            cursor: pointer;
+        }
+
+        .checkbox-options input[type="radio"] {
+            margin-right: 8px;
+        }
+
+        .reason-input {
+            margin-left: 5px;
+            padding: 4px 8px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 13px;
+            width: 200px;
+        }
+
+        .reason-input:focus {
+            outline: none;
+            border-color: #2193b0;
+            box-shadow: 0 0 0 2px rgba(33, 147, 176, 0.25);
+        }
+
+        .scoring-criteria {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 1px solid #dee2e6;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #2193b0;
+        }
+
+        .scoring-criteria h5 {
+            color: #1e3c72;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #2193b0;
+        }
+
+        .criteria-list {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .criteria-list div {
+            padding: 5px 0;
+            color: #495057;
+            border-bottom: 1px dotted #dee2e6;
+        }
+
+        .criteria-list div:last-child {
+            border-bottom: none;
+        }
+
+        .evaluation-note {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin: 15px 0 25px 0;
+            font-size: 14px;
+            color: #856404;
+            font-weight: 500;
+            border-left: 4px solid #f39c12;
+        }
+
+        .defect-category-title {
+            color: #1e3c72;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 30px 0 20px 0;
+            padding: 12px 0;
+            border-bottom: 2px solid #2193b0;
+            position: relative;
+        }
+
+        .defect-category-title::before {
+            content: '📊';
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
         /* 成功提交彈窗樣式 */
         .success-modal {
             position: fixed;
@@ -950,6 +1047,36 @@
                 <!-- B5 -->
                 <div class="form-group">
                     <h3>(B5) 行車記錄器之設置與管理</h3>
+                    
+                    <!-- 基本管理項目 -->
+                    <h4>行車記錄器管理制度</h4>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="periodicStatReport">
+                            <label for="periodicStatReport">1.定期查核統計報表</label>
+                            <div class="checkbox-options">
+                                <label><input type="radio" name="periodicStatReport_status" value="complete"> 資料完整</label>
+                                <label><input type="radio" name="periodicStatReport_status" value="incomplete"> 資料有缺漏，原因：<input type="text" class="reason-input"></label>
+                            </div>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="rewardPunishMethod">
+                            <label for="rewardPunishMethod">2.訂定查核獎懲辦法</label>
+                            <div class="checkbox-options">
+                                <label><input type="radio" name="rewardPunishMethod_status" value="complete"> 資料完整</label>
+                                <label><input type="radio" name="rewardPunishMethod_status" value="incomplete"> 資料有缺漏，原因：<input type="text" class="reason-input"></label>
+                            </div>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="executionRecord">
+                            <label for="executionRecord">3.獎懲之實際執行記錄</label>
+                            <div class="checkbox-options">
+                                <label><input type="radio" name="executionRecord_status" value="complete"> 資料完整</label>
+                                <label><input type="radio" name="executionRecord_status" value="incomplete"> 資料有缺漏，原因：<input type="text" class="reason-input"></label>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="form-field">
                         <label>路線形式</label>
                         <select id="routeType">
@@ -1078,29 +1205,86 @@
             <!-- D類項目 -->
             <div class="section" id="categoryD">
                 <div class="form-group">
-                    <h3>(D2) 交通違規及行車肇事率</h3>
+                    <h3>(D2-1) 評分及獎懲標準</h3>
+                    
+                    <h4>評分項目：評估113.11.01~114.10.31期間內百萬車公里肇事率及交通違規見聞率暨發生</h4>
+                    
                     <div class="form-row">
                         <div class="form-field">
-                            <label for="totalMileage">期間總里程數 (公里)</label>
-                            <input type="number" id="totalMileage" onchange="calculateAccidentRate()">
-                        </div>
-                        <div class="form-field">
-                            <label for="a1Accidents">A1事故件數</label>
-                            <input type="number" id="a1Accidents" onchange="calculateAccidentRate()">
-                        </div>
-                        <div class="form-field">
-                            <label for="a2Accidents">A2事故件數</label>
-                            <input type="number" id="a2Accidents" onchange="calculateAccidentRate()">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-field">
-                            <label for="trafficViolations">交通違規被舉發件數</label>
-                            <input type="number" id="trafficViolations" onchange="calculateViolationRate()">
+                            <label for="totalMileageD2">1.市區公車113.11.01~114.10.31期間總里程數</label>
+                            <input type="number" id="totalMileageD2" placeholder="公里" onchange="calculateD2Rates()">
                         </div>
                     </div>
 
+                    <h4>行車肇事(發生A1、A2事故件數)</h4>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="a1AccidentsD2">A1：</label>
+                            <input type="number" id="a1AccidentsD2" placeholder="件" onchange="calculateD2Rates()">
+                        </div>
+                        <div class="form-field">
+                            <label for="a2AccidentsD2">A2：</label>
+                            <input type="number" id="a2AccidentsD2" placeholder="件" onchange="calculateD2Rates()">
+                        </div>
+                    </div>
 
+                    <div class="scoring-criteria">
+                        <h5>肇事率評分標準：</h5>
+                        <div class="criteria-list">
+                            <div>(1) 重大肇事(A1)次數≦0 次：得 4 點</div>
+                            <div>(2) A2 合計次數=0 次：不予計點</div>
+                            <div>(3) 0 次&lt;A2 合計次數≦0.3 次：得 1 點</div>
+                            <div>(4) 0.3&lt;A2 合計次數 ≦0.6 次：得 2 點</div>
+                            <div>(5) 0.6&lt;A2 合計次數≦1 次：得 3 點</div>
+                            <div>(6) A2 合計次數&gt;1 次：得 4 點</div>
+                            <div>※備註：各業者之百萬車公里肇事率計算公式為：肇事件數÷0 式計算 A2 次數</div>
+                            <div>※備註：若發生(1)重大肇事件數&gt;0 式計算不予計算 A2 次數</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>(D2-2) 評分及獎懲標準</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="trafficViolationsD2">2. A1、A2 事故件數</label>
+                            <input type="number" id="trafficViolationsD2" placeholder="件" onchange="calculateD2Rates()">
+                        </div>
+                    </div>
+
+                    <div class="scoring-criteria">
+                        <h5>交通違規-違反道路交通處罰條例有關駕駛法令且經時報暨發生：且主管機關公告</h5>
+                        <h5>交通違規舉發暨發生率：</h5>
+                        <div class="criteria-list">
+                            <div>(1) 違規次數=0 次：得 4 點</div>
+                            <div>(2) 0 次&lt;違規次數 ≦0.3 次：得 3 點</div>
+                            <div>(3) 0.3 次&lt;違規次數≦0.6 次：得 2 點</div>
+                            <div>(4) 0.6 次&lt;違規次數≦1 次：得 1 點</div>
+                            <div>(5) 違規次數&gt;1 次：不予計點</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="violationComplaintD2">1.市區公車 113.11.01~114.10.31 期間總里程數</label>
+                            <input type="number" id="violationComplaintD2" placeholder="公里">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="violationComplaintMethod">2.違反道路交通處罰條例有關駕駛法令</label>
+                            <input type="number" id="violationComplaintMethod" placeholder="件">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="violationComplaintExecution">3.違反道路交通處罰條例有關駕駛法令合計發生率</label>
+                            <input type="number" id="violationComplaintExecution" placeholder="件">
+                        </div>
+                    </div>
                 </div>
 
 
@@ -1237,24 +1421,41 @@
 
                 <div class="form-group">
                     <h3>(D9) 前期缺失改善情形</h3>
+                    <div class="evaluation-note">※缺失項目保以現場勘查報告說明，評分為主</div>
+                    
+                    <!-- 站牌相關缺失 -->
+                    <h4 class="defect-category-title">1.前期站牌降相關缺失</h4>
                     <div class="form-row">
                         <div class="form-field">
-                            <label for="prevStopDefects">前期站牌相關缺失項目</label>
-                            <input type="number" id="prevStopDefects" onchange="calculateImprovementRatio()">
+                            <label for="prevStopDefects">缺失項目</label>
+                            <input type="number" id="prevStopDefects" placeholder="項" onchange="calculateImprovementRatio()">
                         </div>
                         <div class="form-field">
-                            <label for="improvedStopDefects">已改善站牌缺失項目</label>
-                            <input type="number" id="improvedStopDefects" onchange="calculateImprovementRatio()">
+                            <label for="improvedStopDefects">已改善項目</label>
+                            <input type="number" id="improvedStopDefects" placeholder="項" onchange="calculateImprovementRatio()">
+                        </div>
+                        <div class="form-field">
+                            <label for="stopImprovementRatio">改善比率 <span class="required">*</span></label>
+                            <input type="text" id="stopImprovementRatio" readonly class="auto-calculate" placeholder="%">
+                            <div class="field-help">自動計算：已改善項目 ÷ 缺失項目 × 100%</div>
                         </div>
                     </div>
+
+                    <!-- 隨車設備相關缺失 -->
+                    <h4 class="defect-category-title">2.前期隨車調查設備相關缺失</h4>
                     <div class="form-row">
                         <div class="form-field">
-                            <label for="prevVehicleDefects">前期隨車調查設備相關缺失項目</label>
-                            <input type="number" id="prevVehicleDefects" onchange="calculateImprovementRatio()">
+                            <label for="prevVehicleDefects">缺失項目</label>
+                            <input type="number" id="prevVehicleDefects" placeholder="項" onchange="calculateImprovementRatio()">
                         </div>
                         <div class="form-field">
-                            <label for="improvedVehicleDefects">已改善隨車設備缺失項目</label>
-                            <input type="number" id="improvedVehicleDefects" onchange="calculateImprovementRatio()">
+                            <label for="improvedVehicleDefects">已改善項目</label>
+                            <input type="number" id="improvedVehicleDefects" placeholder="項" onchange="calculateImprovementRatio()">
+                        </div>
+                        <div class="form-field">
+                            <label for="vehicleImprovementRatio">改善比率 <span class="required">*</span></label>
+                            <input type="text" id="vehicleImprovementRatio" readonly class="auto-calculate" placeholder="%">
+                            <div class="field-help">自動計算：已改善項目 ÷ 缺失項目 × 100%</div>
                         </div>
                     </div>
                 </div>
@@ -1286,6 +1487,11 @@
                         <div class="form-field">
                             <label for="accessibleVehicles">無障礙車輛數量(含低地板公車及具備升降設備公車)</label>
                             <input type="number" id="accessibleVehicles" onchange="calculateAccessibleRatio()">
+                        </div>
+                        <div class="form-field">
+                            <label for="accessibleRatio">無障礙公車占比 <span class="required">*</span></label>
+                            <input type="text" id="accessibleRatio" readonly class="auto-calculate">
+                            <div class="field-help">自動計算：無障礙車輛數量 ÷ 總車輛數 × 100%</div>
                         </div>
                     </div>
 
@@ -1418,6 +1624,8 @@
         const btn = document.querySelector('[onclick="submitForm()"]');
         if(btn) btn.className = id==='categoryF'?'btn btn-success':'btn btn-secondary';
         updateProgress();
+        // 滾動到頁面頂部
+        scrollToTop();
       }
       function showSectionById(id) {
         document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
@@ -1428,14 +1636,24 @@
         const btn = document.querySelector('[onclick="submitForm()"]');
         if(btn) btn.className = id==='categoryF'?'btn btn-success':'btn btn-secondary';
         updateProgress();
+        // 滾動到頁面頂部
+        scrollToTop();
       }
 
       // 上一／下一頁
       function prevSection() {
-        if(currentSection>0) showSectionById(sections[--currentSection]);
+        if(currentSection>0) {
+          showSectionById(sections[--currentSection]);
+          // 滾動到頁面頂部
+          scrollToTop();
+        }
       }
       function nextSection() {
-        if(currentSection<sections.length-1) showSectionById(sections[++currentSection]);
+        if(currentSection<sections.length-1) {
+          showSectionById(sections[++currentSection]);
+          // 滾動到頁面頂部
+          scrollToTop();
+        }
       }
 
       // 更新進度條
@@ -1587,7 +1805,7 @@
             const total = parseFloat(document.getElementById('accessibleTotal').value) || 0;
             const accessible = parseFloat(document.getElementById('accessibleVehicles').value) || 0;
             const ratio = total > 0 ? (accessible / total * 100).toFixed(2) : 0;
-            document.getElementById('accessibleRatio').textContent = `無障礙公車占比：${ratio}% (${accessible}/${total})`;
+            document.getElementById('accessibleRatio').value = `${ratio}%`;
         }
 
         // 計算改善比率
@@ -1597,13 +1815,28 @@
             const prevVehicle = parseFloat(document.getElementById('prevVehicleDefects').value) || 0;
             const improvedVehicle = parseFloat(document.getElementById('improvedVehicleDefects').value) || 0;
             
+            // 計算站牌改善比率
             const stopRatio = prevStop > 0 ? (improvedStop / prevStop * 100).toFixed(2) : 0;
-            const vehicleRatio = prevVehicle > 0 ? (improvedVehicle / prevVehicle * 100).toFixed(2) : 0;
+            const stopRatioField = document.getElementById('stopImprovementRatio');
+            if (stopRatioField) {
+                stopRatioField.value = `${stopRatio}%`;
+            }
             
-            document.getElementById('improvementRatio').innerHTML = `
-                站牌缺失改善比率：${stopRatio}% (${improvedStop}/${prevStop})<br>
-                隨車設備缺失改善比率：${vehicleRatio}% (${improvedVehicle}/${prevVehicle})
-            `;
+            // 計算隨車設備改善比率
+            const vehicleRatio = prevVehicle > 0 ? (improvedVehicle / prevVehicle * 100).toFixed(2) : 0;
+            const vehicleRatioField = document.getElementById('vehicleImprovementRatio');
+            if (vehicleRatioField) {
+                vehicleRatioField.value = `${vehicleRatio}%`;
+            }
+            
+            // 保留舊的顯示方式（如果還有其他地方使用）
+            const improvementRatioField = document.getElementById('improvementRatio');
+            if (improvementRatioField) {
+                improvementRatioField.innerHTML = `
+                    站牌缺失改善比率：${stopRatio}% (${improvedStop}/${prevStop})<br>
+                    隨車設備缺失改善比率：${vehicleRatio}% (${improvedVehicle}/${prevVehicle})
+                `;
+            }
         }
 
         // 自動保存
@@ -2418,6 +2651,152 @@
             helpButton.title = '顯示鍵盤快捷鍵';
             document.body.appendChild(helpButton);
         };
+
+        // =========================
+        // 滾動到頁面頂部功能
+        // =========================
+        function scrollToTop(smooth = true) {
+            if (smooth) {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            } else {
+                window.scrollTo(0, 0);
+            }
+        }
+
+        // 回到頂部按鈕顯示/隱藏控制
+        function handleBackToTopButton() {
+            const backToTopBtn = document.getElementById('backToTopBtn');
+            if (!backToTopBtn) return;
+            
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 300) {
+                backToTopBtn.classList.remove('hidden');
+                backToTopBtn.style.display = 'block';
+            } else {
+                backToTopBtn.classList.add('hidden');
+                backToTopBtn.style.display = 'none';
+            }
+        }
+
+        // 創建回到頂部按鈕
+        function createBackToTopButton() {
+            // 檢查是否已存在按鈕
+            if (document.getElementById('backToTopBtn')) return;
+
+            const backToTopBtn = document.createElement('button');
+            backToTopBtn.id = 'backToTopBtn';
+            backToTopBtn.innerHTML = `
+                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                </svg>
+            `;
+            backToTopBtn.style.cssText = `
+                position: fixed;
+                bottom: 80px;
+                right: 20px;
+                z-index: 1000;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
+                color: white;
+                border: none;
+                cursor: pointer;
+                box-shadow: 0 4px 15px rgba(33, 147, 176, 0.3);
+                transition: all 0.3s ease;
+                display: none;
+                align-items: center;
+                justify-content: center;
+            `;
+            
+            // 懸停效果
+            backToTopBtn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px) scale(1.1)';
+                this.style.boxShadow = '0 8px 25px rgba(33, 147, 176, 0.4)';
+            });
+            
+            backToTopBtn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+                this.style.boxShadow = '0 4px 15px rgba(33, 147, 176, 0.3)';
+            });
+            
+            backToTopBtn.onclick = function() {
+                scrollToTop();
+                // 顯示提示訊息
+                showMessage('已回到頁面頂部', 'success', 2000);
+            };
+            
+            backToTopBtn.title = '回到頁面頂部';
+            document.body.appendChild(backToTopBtn);
+        }
+
+        // 增強現有的 showTab 函數（如果存在）
+        const originalShowTab = window.showTab;
+        window.showTab = function(tabName) {
+            if (originalShowTab) {
+                originalShowTab(tabName);
+            }
+            // 切換標籤時滾動到頂部
+            scrollToTop();
+        };
+
+        // 增強表單提交功能
+        const originalSubmitForm = window.submitForm;
+        window.submitForm = function() {
+            if (originalSubmitForm) {
+                const result = originalSubmitForm();
+                // 提交後滾動到頂部
+                setTimeout(() => scrollToTop(), 500);
+                return result;
+            }
+        };
+
+        // 初始化滾動功能
+        document.addEventListener('DOMContentLoaded', function() {
+            // 創建回到頂部按鈕
+            createBackToTopButton();
+            
+            // 監聽滾動事件
+            window.addEventListener('scroll', handleBackToTopButton);
+            
+            // 為所有標籤按鈕添加滾動功能
+            const tabButtons = document.querySelectorAll('.nav-tab');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    setTimeout(() => scrollToTop(), 100);
+                });
+            });
+
+            // 為表單提交按鈕添加滾動功能
+            const submitButtons = document.querySelectorAll('button[type="submit"], .btn-success');
+            submitButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    setTimeout(() => scrollToTop(), 1000);
+                });
+            });
+
+            // 為重置按鈕添加滾動功能
+            const resetButtons = document.querySelectorAll('button[type="reset"], .btn-secondary');
+            resetButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    setTimeout(() => scrollToTop(), 200);
+                });
+            });
+        });
+
+        // 鍵盤快捷鍵支援
+        document.addEventListener('keydown', function(e) {
+            // Ctrl + Home 或 Home 鍵回到頂部
+            if ((e.ctrlKey && e.key === 'Home') || e.key === 'Home') {
+                e.preventDefault();
+                scrollToTop();
+                showMessage('已回到頁面頂部', 'success', 1500);
+            }
+        });
     </script>
 </body>
 </html>
