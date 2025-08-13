@@ -518,6 +518,7 @@
             font-weight: 500;
             max-width: 400px;
             animation: slideIn 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
         .message.success {
@@ -530,6 +531,19 @@
             background: #f8d7da;
             color: #721c24;
             border: 1px solid #f5c6cb;
+            /* 確保錯誤訊息持續顯示 */
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: block !important;
+        }
+
+        /* 防止錯誤訊息被任何動畫或過渡效果隱藏 */
+        .message.error[data-persistent="true"] {
+            animation: none !important;
+            transition: none !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: block !important;
         }
 
         @keyframes slideIn {
@@ -2072,8 +2086,10 @@
             return 'temp_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
         }
 
-        // 改進的錯誤訊息顯示函數
+        // 完全重寫的錯誤訊息顯示函數
         function showMessage(message, type, duration = 5000) {
+            console.log('showMessage 被調用:', { message, type, duration });
+            
             // 移除現有訊息
             const existingMessage = document.querySelector('.message');
             if (existingMessage) {
@@ -2094,17 +2110,139 @@
                 font-weight: bold;
                 margin-left: 10px;
             `;
-            closeBtn.onclick = () => messageDiv.remove();
+            closeBtn.onclick = () => {
+                console.log('手動關閉錯誤訊息');
+                messageDiv.remove();
+            };
             messageDiv.appendChild(closeBtn);
             
             document.body.appendChild(messageDiv);
             
-            // 自動移除訊息
-            setTimeout(() => {
-                if (messageDiv.parentNode) {
-                    messageDiv.remove();
+            if (type === 'error') {
+                // 錯誤訊息：絕對不自動消失
+                messageDiv.setAttribute('data-persistent', 'true');
+                messageDiv.id = 'persistent-error-message';
+                
+                // 為錯誤訊息添加持續顯示的提示
+                const persistentNote = document.createElement('div');
+                persistentNote.style.cssText = `
+                    font-size: 12px;
+                    color: #721c24;
+                    margin-top: 10px;
+                    font-style: italic;
+                `;
+                persistentNote.innerHTML = '💡 此訊息將持續顯示直到所有問題解決，或點擊 × 關閉';
+                messageDiv.appendChild(persistentNote);
+                
+                console.log('錯誤訊息已創建，絕對不會自動消失');
+                
+                // 防護機制：每5秒檢查一次是否還存在
+                const keepAliveInterval = setInterval(() => {
+                    const errorMsg = document.getElementById('persistent-error-message');
+                    if (!errorMsg) {
+                        console.log('錯誤訊息被意外移除，停止監控');
+                        clearInterval(keepAliveInterval);
+                    } else {
+                        console.log('錯誤訊息仍然存在');
+                    }
+                }, 5000);
+                
+                // 將監控器ID存儲到元素上，以便後續清理
+                messageDiv.setAttribute('data-keepalive', keepAliveInterval);
+                
+            } else {
+                // 成功訊息：正常自動消失
+                console.log('設置成功訊息自動消失，時間:', duration);
+                setTimeout(() => {
+                    if (messageDiv.parentNode) {
+                        console.log('自動移除成功訊息');
+                        messageDiv.remove();
+                    }
+                }, duration);
+            }
+        }
+
+        // 專門的持續錯誤訊息顯示函數 - 絕對不會自動消失
+        function showPersistentErrorMessage(message) {
+            console.log('顯示持續錯誤訊息:', message);
+            
+            // 移除現有的錯誤訊息
+            const existingError = document.getElementById('persistent-validation-error');
+            if (existingError) {
+                existingError.remove();
+            }
+            
+            // 創建錯誤訊息元素
+            const errorDiv = document.createElement('div');
+            errorDiv.id = 'persistent-validation-error';
+            errorDiv.innerHTML = message;
+            
+            // 設置樣式
+            errorDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 99999;
+                padding: 15px 20px;
+                border-radius: 8px;
+                font-weight: 500;
+                max-width: 400px;
+                background: #f8d7da;
+                color: #721c24;
+                border: 1px solid #f5c6cb;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                opacity: 1 !important;
+                visibility: visible !important;
+                display: block !important;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            // 添加關閉按鈕
+            const closeBtn = document.createElement('span');
+            closeBtn.innerHTML = '&times;';
+            closeBtn.style.cssText = `
+                float: right;
+                cursor: pointer;
+                font-size: 20px;
+                font-weight: bold;
+                margin-left: 10px;
+                color: #721c24;
+            `;
+            closeBtn.onclick = () => {
+                console.log('手動關閉持續錯誤訊息');
+                errorDiv.remove();
+            };
+            errorDiv.appendChild(closeBtn);
+            
+            // 添加持續顯示提示
+            const persistentNote = document.createElement('div');
+            persistentNote.style.cssText = `
+                font-size: 12px;
+                color: #721c24;
+                margin-top: 10px;
+                font-style: italic;
+            `;
+            persistentNote.innerHTML = '💡 此訊息將持續顯示直到所有問題解決，或點擊 × 關閉';
+            errorDiv.appendChild(persistentNote);
+            
+            // 添加到頁面
+            document.body.appendChild(errorDiv);
+            
+            console.log('持續錯誤訊息已創建，絕對不會自動消失');
+            
+            // 防護機制：定期檢查是否還存在
+            const checkInterval = setInterval(() => {
+                const errorElement = document.getElementById('persistent-validation-error');
+                if (!errorElement) {
+                    console.log('持續錯誤訊息被意外移除，停止監控');
+                    clearInterval(checkInterval);
+                } else {
+                    console.log('持續錯誤訊息正常顯示中');
                 }
-            }, duration);
+            }, 3000);
+            
+            // 將監控器存儲到全域變量
+            window.errorMessageMonitor = checkInterval;
         }
 
         // 顯示成功提交彈窗
@@ -2262,25 +2400,266 @@
 
     
 
-        // 表單驗證
+        // 表單驗證 - 要求所有欄位都必須填寫
         function validateForm() {
-            const requiredFields = ['companyName', 'fillPerson', 'fillDate', 'totalVehicles'];
             let isValid = true;
             let errorMessages = [];
             
-            requiredFields.forEach(fieldId => {
-                const field = document.getElementById(fieldId);
-                if (!field.value.trim()) {
-                    field.style.borderColor = '#dc3545';
-                    errorMessages.push(`請填寫 ${field.previousElementSibling.textContent}`);
+            // 檢查所有文字輸入框
+            const textInputs = document.querySelectorAll('input[type="text"], input[type="number"], input[type="date"], input[type="email"], input[type="tel"]');
+            textInputs.forEach(input => {
+                // 檢查是否為「原因」相關的輸入框，且「資料完整」已勾選
+                const isReasonInput = input.className.includes('reason-input') || 
+                                     input.closest('label')?.textContent.includes('原因') ||
+                                     input.previousElementSibling?.textContent.includes('原因');
+                
+                let shouldSkipValidation = false;
+                
+                if (isReasonInput) {
+                    // 尋找同一群組中的「資料完整」複選框
+                    const groupContainer = input.closest('.form-group') || input.closest('.checkbox-options') || input.closest('.form-field');
+                    
+                    // 更廣泛地搜尋所有複選框
+                    const allCheckboxes = groupContainer?.querySelectorAll('input[type="checkbox"]') || [];
+                    
+                    // 檢查每個複選框是否為「資料完整」選項
+                    for (let checkbox of allCheckboxes) {
+                        const checkboxLabel = checkbox.closest('label') || 
+                                            checkbox.nextElementSibling || 
+                                            checkbox.previousElementSibling ||
+                                            checkbox.parentElement?.querySelector('label');
+                        
+                        if (checkboxLabel && checkboxLabel.textContent.includes('資料完整')) {
+                            if (checkbox.checked) {
+                                shouldSkipValidation = true;
+                                // 清除錯誤樣式
+                                input.style.borderColor = '#dee2e6';
+                                input.style.boxShadow = '';
+                                console.log('跳過驗證：資料完整已勾選', input); // 除錯用
+                                break;
+                            }
+                        }
+                    }
+                    
+                    // 如果沒找到，擴大搜尋範圍到整個表單區段
+                    if (!shouldSkipValidation) {
+                        const sectionContainer = input.closest('.section') || document;
+                        const allSectionCheckboxes = sectionContainer.querySelectorAll('input[type="checkbox"]');
+                        
+                        for (let checkbox of allSectionCheckboxes) {
+                            const checkboxLabel = checkbox.closest('label') || 
+                                                checkbox.nextElementSibling || 
+                                                checkbox.previousElementSibling ||
+                                                checkbox.parentElement?.querySelector('label');
+                            
+                            if (checkboxLabel && checkboxLabel.textContent.includes('資料完整')) {
+                                // 檢查這個複選框是否與當前輸入框在相近的位置
+                                const checkboxGroup = checkbox.closest('.form-group');
+                                const inputGroup = input.closest('.form-group');
+                                
+                                if (checkboxGroup === inputGroup && checkbox.checked) {
+                                    shouldSkipValidation = true;
+                                    input.style.borderColor = '#dee2e6';
+                                    input.style.boxShadow = '';
+                                    console.log('跳過驗證：找到相關的資料完整選項', input); // 除錯用
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                if (!shouldSkipValidation && !input.value.trim()) {
+                    input.style.borderColor = '#dc3545';
+                    input.style.boxShadow = '0 0 0 3px rgba(220, 53, 69, 0.25)';
+                    
+                    // 取得欄位標籤文字
+                    const label = input.closest('.form-field')?.querySelector('label') || 
+                                 input.previousElementSibling?.tagName === 'LABEL' ? input.previousElementSibling : null;
+                    const labelText = label ? label.textContent.replace('*', '').trim() : '某個欄位';
+                    errorMessages.push(`請填寫「${labelText}」`);
+                    isValid = false;
+                } else if (!shouldSkipValidation || input.value.trim()) {
+                    input.style.borderColor = '#dee2e6';
+                    input.style.boxShadow = '';
+                }
+            });
+            
+            // 檢查所有下拉選單
+            const dropdowns = document.querySelectorAll('select');
+            dropdowns.forEach(dropdown => {
+                if (dropdown.value === '' || dropdown.value === '請選擇') {
+                    dropdown.style.borderColor = '#dc3545';
+                    dropdown.style.boxShadow = '0 0 0 3px rgba(220, 53, 69, 0.25)';
+                    
+                    const label = dropdown.closest('.form-field')?.querySelector('label') || 
+                                 dropdown.previousElementSibling?.tagName === 'LABEL' ? dropdown.previousElementSibling : null;
+                    const labelText = label ? label.textContent.replace('*', '').trim() : '下拉選單';
+                    errorMessages.push(`請選擇「${labelText}」`);
                     isValid = false;
                 } else {
-                    field.style.borderColor = '#dee2e6';
+                    dropdown.style.borderColor = '#dee2e6';
+                    dropdown.style.boxShadow = '';
+                }
+            });
+            
+            // 檢查所有文字區域
+            const textareas = document.querySelectorAll('textarea');
+            textareas.forEach(textarea => {
+                if (!textarea.value.trim()) {
+                    textarea.style.borderColor = '#dc3545';
+                    textarea.style.boxShadow = '0 0 0 3px rgba(220, 53, 69, 0.25)';
+                    
+                    const label = textarea.closest('.form-field')?.querySelector('label') || 
+                                 textarea.previousElementSibling?.tagName === 'LABEL' ? textarea.previousElementSibling : null;
+                    const labelText = label ? label.textContent.replace('*', '').trim() : '文字區域';
+                    errorMessages.push(`請填寫「${labelText}」`);
+                    isValid = false;
+                } else {
+                    textarea.style.borderColor = '#dee2e6';
+                    textarea.style.boxShadow = '';
+                }
+            });
+            
+            // 檢查單選按鈕群組
+            const radioGroups = {};
+            const radios = document.querySelectorAll('input[type="radio"]');
+            radios.forEach(radio => {
+                if (!radioGroups[radio.name]) {
+                    radioGroups[radio.name] = [];
+                }
+                radioGroups[radio.name].push(radio);
+            });
+            
+            Object.keys(radioGroups).forEach(groupName => {
+                const group = radioGroups[groupName];
+                const isChecked = group.some(radio => radio.checked);
+                
+                if (!isChecked && group.length > 0) {
+                    // 找到群組的標籤
+                    const firstRadio = group[0];
+                    const fieldContainer = firstRadio.closest('.form-field') || firstRadio.closest('.form-group');
+                    const groupLabel = fieldContainer?.querySelector('h3, h4, label')?.textContent || `選項群組 ${groupName}`;
+                    
+                    group.forEach(radio => {
+                        radio.style.outline = '2px solid #dc3545';
+                    });
+                    
+                    errorMessages.push(`請選擇「${groupLabel.replace('*', '').trim()}」中的一個選項`);
+                    isValid = false;
+                } else if (isChecked) {
+                    group.forEach(radio => {
+                        radio.style.outline = '';
+                    });
+                }
+            });
+            
+            // 檢查複選框群組 - 處理互斥選項
+            const checkboxGroups = {};
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            
+            // 將複選框按群組分類（根據父容器）
+            checkboxes.forEach(checkbox => {
+                const groupContainer = checkbox.closest('.form-group') || checkbox.closest('.checkbox-options');
+                const groupId = groupContainer ? Array.from(document.querySelectorAll('.form-group, .checkbox-options')).indexOf(groupContainer) : 'default';
+                
+                if (!checkboxGroups[groupId]) {
+                    checkboxGroups[groupId] = [];
+                }
+                checkboxGroups[groupId].push(checkbox);
+            });
+            
+            // 驗證每個複選框群組
+            Object.keys(checkboxGroups).forEach(groupId => {
+                const group = checkboxGroups[groupId];
+                const checkedBoxes = group.filter(cb => cb.checked);
+                
+                // 檢查是否有互斥選項（資料完整 vs 資料有缺漏）
+                const hasCompleteOption = group.some(cb => {
+                    // 更廣泛地搜尋標籤文字
+                    const label = cb.closest('label') || 
+                                 cb.nextElementSibling || 
+                                 cb.previousElementSibling ||
+                                 cb.parentElement?.textContent ||
+                                 cb.parentElement?.querySelector('label')?.textContent;
+                    const labelText = typeof label === 'string' ? label : (label?.textContent || '');
+                    console.log('檢查完整選項:', labelText, '是否包含資料完整:', labelText.includes('資料完整'));
+                    return labelText.includes('資料完整');
+                });
+                
+                const hasIncompleteOption = group.some(cb => {
+                    const label = cb.closest('label') || 
+                                 cb.nextElementSibling || 
+                                 cb.previousElementSibling ||
+                                 cb.parentElement?.textContent ||
+                                 cb.parentElement?.querySelector('label')?.textContent;
+                    const labelText = typeof label === 'string' ? label : (label?.textContent || '');
+                    console.log('檢查缺漏選項:', labelText, '是否包含缺漏:', labelText.includes('資料有缺漏') || labelText.includes('原因'));
+                    return labelText.includes('資料有缺漏') || labelText.includes('原因');
+                });
+                
+                if (hasCompleteOption && hasIncompleteOption) {
+                    // 這是一個互斥群組（如B5）
+                    if (checkedBoxes.length === 0) {
+                        // 沒有選擇任何選項
+                        group.forEach(cb => {
+                            cb.style.outline = '2px solid #dc3545';
+                            cb.style.outlineOffset = '2px';
+                        });
+                        
+                        const groupContainer = group[0].closest('.form-group');
+                        const groupTitle = groupContainer?.querySelector('h3, h4')?.textContent || '選項群組';
+                        errorMessages.push(`請在「${groupTitle.replace('*', '').trim()}」中選擇一個選項`);
+                        isValid = false;
+                    } else {
+                        // 清除錯誤標示
+                        group.forEach(cb => {
+                            cb.style.outline = '';
+                        });
+                    }
+                } else {
+                    // 一般複選框群組 - 要求全部勾選
+                    group.forEach(checkbox => {
+                        if (!checkbox.checked) {
+                            checkbox.style.outline = '2px solid #dc3545';
+                            checkbox.style.outlineOffset = '2px';
+                            
+                            const label = checkbox.closest('label') || 
+                                         checkbox.nextElementSibling?.tagName === 'LABEL' ? checkbox.nextElementSibling :
+                                         checkbox.previousElementSibling?.tagName === 'LABEL' ? checkbox.previousElementSibling :
+                                         checkbox.closest('.form-field')?.querySelector('label');
+                            
+                            const labelText = label ? label.textContent.replace('*', '').trim() : '某個選項';
+                            errorMessages.push(`請勾選「${labelText}」`);
+                            isValid = false;
+                        } else {
+                            checkbox.style.outline = '';
+                        }
+                    });
+                }
+            });
+            
+            // 檢查場站資料完整性
+            const stationEntries = document.querySelectorAll('.station-entry');
+            stationEntries.forEach((station, index) => {
+                const nameInput = station.querySelector('.station-name');
+                const areaInput = station.querySelector('.station-area');
+                const spacesInput = station.querySelector('.station-spaces');
+                
+                if (!nameInput.value.trim() || !areaInput.value.trim() || !spacesInput.value.trim()) {
+                    [nameInput, areaInput, spacesInput].forEach(input => {
+                        if (!input.value.trim()) {
+                            input.style.borderColor = '#dc3545';
+                            input.style.boxShadow = '0 0 0 3px rgba(220, 53, 69, 0.25)';
+                        }
+                    });
+                    errorMessages.push(`場站 ${index + 1} 的資料不完整，請填寫所有欄位`);
+                    isValid = false;
                 }
             });
             
             // 檢查數值合理性
-            const totalVehicles = parseFloat(document.getElementById('totalVehicles').value) || 0;
+            const totalVehicles = parseFloat(document.getElementById('totalVehicles')?.value) || 0;
             if (totalVehicles <= 0) {
                 errorMessages.push('總車輛數必須大於0');
                 isValid = false;
@@ -2297,22 +2676,21 @@
                 errorMessages.push('停車格位數似乎過多，請檢查是否正確');
             }
             
-            // 檢查下拉選單是否還是預設值「請選擇」
-            const dropdowns = document.querySelectorAll('select');
-            dropdowns.forEach(dropdown => {
-                if (dropdown.value === '' || dropdown.value === '請選擇') {
-                    dropdown.style.borderColor = '#dc3545';
-                    const label = dropdown.previousElementSibling;
-                    const labelText = label ? label.textContent.replace('*', '').trim() : '下拉選單';
-                    errorMessages.push(`請選擇 ${labelText}`);
-                    isValid = false;
-                } else {
-                    dropdown.style.borderColor = '#dee2e6';
-                }
-            });
-            
+            // 顯示錯誤訊息 - 使用專門的持續顯示函數
             if (!isValid) {
-                showMessage(errorMessages.join('<br>'), 'error');
+                showPersistentErrorMessage(
+                    `<strong>表單填寫不完整！</strong><br><br>` +
+                    `請填寫以下必填欄位：<br>` +
+                    errorMessages.map(msg => `• ${msg}`).join('<br>') +
+                    `<br><br><em>所有欄位都是必填的，請確保沒有遺漏任何資料。</em>`
+                );
+                
+                // 滾動到第一個錯誤欄位
+                const firstErrorField = document.querySelector('input[style*="border-color: rgb(220, 53, 69)"], select[style*="border-color: rgb(220, 53, 69)"], textarea[style*="border-color: rgb(220, 53, 69)"]');
+                if (firstErrorField) {
+                    firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    setTimeout(() => firstErrorField.focus(), 500);
+                }
             }
             
             return isValid;
