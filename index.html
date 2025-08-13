@@ -1026,7 +1026,81 @@
                     <div class="checkbox-group">
                         <div class="checkbox-item">
                             <input type="checkbox" id="hasVehicleProof">
-                            <label for="hasVehicleProof">提供車籍證明資料</label>
+                            <label for="hasVehicleProof">是否提供車籍證明資料</label>
+                            <div class="vehicle-note" style="
+                                margin-top: 12px; 
+                                margin-left: 24px;
+                                padding: 16px 20px; 
+                                background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+                                border: 1px solid #dee2e6;
+                                border-radius: 8px;
+                                box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+                                position: relative;
+                                overflow: hidden;
+                            ">
+                                <div style="
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    width: 4px;
+                                    height: 100%;
+                                    background: linear-gradient(180deg, #007bff 0%, #0056b3 100%);
+                                "></div>
+                                <div style="
+                                    display: flex;
+                                    align-items: center;
+                                    margin-bottom: 8px;
+                                    color: #495057;
+                                ">
+                                    <svg width="16" height="16" style="margin-right: 8px; fill: #007bff;" viewBox="0 0 16 16">
+                                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                                    </svg>
+                                    <span style="font-weight: 600; font-size: 15px;">重要說明</span>
+                                </div>
+                                <div style="
+                                    font-size: 14px;
+                                    line-height: 1.6;
+                                    color: #495057;
+                                    margin-left: 24px;
+                                ">
+                                    <div style="margin-bottom: 6px; display: flex; align-items: flex-start;">
+                                        <span style="
+                                            display: inline-block;
+                                            width: 20px;
+                                            height: 20px;
+                                            background: #007bff;
+                                            color: white;
+                                            border-radius: 50%;
+                                            text-align: center;
+                                            line-height: 20px;
+                                            font-size: 12px;
+                                            font-weight: bold;
+                                            margin-right: 8px;
+                                            flex-shrink: 0;
+                                            margin-top: 1px;
+                                        ">1</span>
+                                        <span>若無法提供，請於現場簡報時說明</span>
+                                    </div>
+                                    <div style="display: flex; align-items: flex-start;">
+                                        <span style="
+                                            display: inline-block;
+                                            width: 20px;
+                                            height: 20px;
+                                            background: #007bff;
+                                            color: white;
+                                            border-radius: 50%;
+                                            text-align: center;
+                                            line-height: 20px;
+                                            font-size: 12px;
+                                            font-weight: bold;
+                                            margin-right: 8px;
+                                            flex-shrink: 0;
+                                            margin-top: 1px;
+                                        ">2</span>
+                                        <span>車籍資料請提供屬於桃園市市區公車路線之車輛車牌號碼以及出廠年月</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1065,11 +1139,11 @@
                     <div class="checkbox-group">
                         <div class="checkbox-item">
                             <input type="checkbox" id="dieselManagementProof">
-                            <label for="dieselManagementProof">提供柴油車自主管理標章合格資料</label>
+                            <label for="dieselManagementProof">是否提供柴油車自主管理標章合格資料</label>
                         </div>
                         <div class="checkbox-item">
                             <input type="checkbox" id="gasolineEmissionTest">
-                            <label for="gasolineEmissionTest">提供汽油車排氣定檢資料</label>
+                            <label for="gasolineEmissionTest">是否提供汽油車排氣定檢資料</label>
                         </div>
                     </div>
 
@@ -1081,11 +1155,11 @@
                     <div class="checkbox-group">
                         <div class="checkbox-item">
                             <input type="checkbox" id="hasExtinguisherPhoto">
-                            <label for="hasExtinguisherPhoto">提供車輛內滅火器照片</label>
+                            <label for="hasExtinguisherPhoto">是否提供車輛內滅火器照片</label>
                         </div>
                         <div class="checkbox-item">
                             <input type="checkbox" id="extinguisherNormal">
-                            <label for="extinguisherNormal">滅火器均在有效期限內且壓力表正常</label>
+                            <label for="extinguisherNormal">車輛內滅火器是否有不在有效期限內或壓力表不正常情形</label>
                         </div>
                     </div>
                     <div class="form-field">
@@ -1098,34 +1172,7 @@
                 <div class="form-group">
                     <h3>(B5) 行車記錄器之設置與管理</h3>
                     
-                    <!-- 基本管理項目 -->
-                    <h4>行車記錄器管理制度</h4>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="periodicStatReport">
-                            <label for="periodicStatReport">1.定期查核統計報表</label>
-                            <div class="checkbox-options">
-                                <label><input type="radio" name="periodicStatReport_status" value="complete"> 資料完整</label>
-                                <label><input type="radio" name="periodicStatReport_status" value="incomplete"> 資料有缺漏，原因：<input type="text" class="reason-input"></label>
-                            </div>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="rewardPunishMethod">
-                            <label for="rewardPunishMethod">2.訂定查核獎懲辦法</label>
-                            <div class="checkbox-options">
-                                <label><input type="radio" name="rewardPunishMethod_status" value="complete"> 資料完整</label>
-                                <label><input type="radio" name="rewardPunishMethod_status" value="incomplete"> 資料有缺漏，原因：<input type="text" class="reason-input"></label>
-                            </div>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="executionRecord">
-                            <label for="executionRecord">3.獎懲之實際執行記錄</label>
-                            <div class="checkbox-options">
-                                <label><input type="radio" name="executionRecord_status" value="complete"> 資料完整</label>
-                                <label><input type="radio" name="executionRecord_status" value="incomplete"> 資料有缺漏，原因：<input type="text" class="reason-input"></label>
-                            </div>
-                        </div>
-                    </div>
+
 
                     <div class="form-field">
                         <label>路線形式</label>
@@ -1136,27 +1183,258 @@
                         </select>
                     </div>
                     
-                    <div id="otherRouteFields" style="display: none;">
-                        <h4>大客車專用行車紀錄器管理</h4>
-                        <div class="checkbox-group">
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="hasStatReport">
-                                <label for="hasStatReport">定期查核統計報表 - 資料完整</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="hasRewardPunish">
-                                <label for="hasRewardPunish">訂定查核獎懲辦法 - 資料完整</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="hasExecution">
-                                <label for="hasExecution">獎懲實際執行記錄 - 資料完整</label>
+
+
+
+
+                    <div id="otherRouteFields" style="display: none;margin-top: 15px;">
+                        <div style="
+                            background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+                            color: white;
+                            padding: 16px 20px;
+                            border-radius: 10px;
+                            margin-bottom: 20px;
+                            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+                            position: relative;
+                            overflow: hidden;
+                        ">
+                            <div style="
+                                position: absolute;
+                                top: -50%;
+                                right: -10%;
+                                width: 100px;
+                                height: 100px;
+                                background: rgba(255, 255, 255, 0.1);
+                                border-radius: 50%;
+                                transform: rotate(45deg);
+                            "></div>
+                            <div style="
+                                display: flex;
+                                align-items: center;
+                                position: relative;
+                                z-index: 1;
+                            ">
+                                <svg width="24" height="24" style="margin-right: 12px; fill: white;" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                </svg>
+                                <h4 style="
+                                    margin: 0;
+                                    font-size: 18px;
+                                    font-weight: 600;
+                                    color: white;
+                                    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+                                ">🚌 大客車專用行車紀錄器管理</h4>
                             </div>
                         </div>
+                        
+                        <!-- 基本管理項目 -->
+                        <div style="
+                            display: grid;
+                            grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+                            gap: 20px;
+                            margin-top: 20px;
+                        ">
+                            <!-- 項目1: 定期查核統計報表 -->
+                            <div style="
+                                background: white;
+                                border: 2px solid #e9ecef;
+                                border-radius: 12px;
+                                padding: 20px;
+                                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                                transition: all 0.3s ease;
+                                position: relative;
+                                border-left: 5px solid #007bff;
+                            " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 16px rgba(0,0,0,0.15)'; this.style.borderLeftColor='#0056b3';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)'; this.style.borderLeftColor='#007bff';">
+                                <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                                    <div style="
+                                        width: 32px;
+                                        height: 32px;
+                                        background: linear-gradient(135deg, #007bff, #0056b3);
+                                        border-radius: 50%;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        color: white;
+                                        font-weight: bold;
+                                        font-size: 14px;
+                                        margin-right: 12px;
+                                    ">1</div>
+                                    <span style="font-weight: 600; color: #2c3e50; font-size: 15px;">定期查核統計報表</span>
+                                </div>
+                                <div style="margin-left: 44px;">
+                                    <div style="margin-bottom: 8px;">
+                                        <label style="display: flex; align-items: center; padding: 6px 12px; background: #e8f5e8; border-radius: 6px; cursor: pointer;">
+                                            <input type="radio" name="periodicStatReport_status" value="complete" style="margin-right: 8px;">
+                                            <span style="color: #28a745; font-weight: 500;">✓ 資料完整</span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label style="display: flex; align-items: flex-start; padding: 8px 12px; background: #fff3cd; border-radius: 6px; cursor: pointer;">
+                                            <input type="radio" name="periodicStatReport_status" value="incomplete" style="margin-right: 8px; margin-top: 2px;">
+                                            <div style="flex: 1;">
+                                                <span style="color: #856404; font-weight: 500; display: block; margin-bottom: 6px;">⚠ 資料有缺漏</span>
+                                                <input type="text" class="reason-input" placeholder="請說明缺漏原因..." style="
+                                                    width: 100%;
+                                                    padding: 6px 10px;
+                                                    border: 1px solid #ffeaa7;
+                                                    border-radius: 4px;
+                                                    font-size: 13px;
+                                                    background: white;
+                                                ">
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 項目2: 訂定查核獎懲辦法 -->
+                            <div style="
+                                background: white;
+                                border: 2px solid #e9ecef;
+                                border-radius: 12px;
+                                padding: 20px;
+                                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                                transition: all 0.3s ease;
+                                position: relative;
+                                border-left: 5px solid #28a745;
+                            " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 16px rgba(0,0,0,0.15)'; this.style.borderLeftColor='#20c997';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)'; this.style.borderLeftColor='#28a745';">
+                                <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                                    <div style="
+                                        width: 32px;
+                                        height: 32px;
+                                        background: linear-gradient(135deg, #28a745, #20c997);
+                                        border-radius: 50%;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        color: white;
+                                        font-weight: bold;
+                                        font-size: 14px;
+                                        margin-right: 12px;
+                                    ">2</div>
+                                    <span style="font-weight: 600; color: #2c3e50; font-size: 15px;">訂定查核獎懲辦法</span>
+                                </div>
+                                <div style="margin-left: 44px;">
+                                    <div style="margin-bottom: 8px;">
+                                        <label style="display: flex; align-items: center; padding: 6px 12px; background: #e8f5e8; border-radius: 6px; cursor: pointer;">
+                                            <input type="radio" name="rewardPunishMethod_status" value="complete" style="margin-right: 8px;">
+                                            <span style="color: #28a745; font-weight: 500;">✓ 資料完整</span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label style="display: flex; align-items: flex-start; padding: 8px 12px; background: #fff3cd; border-radius: 6px; cursor: pointer;">
+                                            <input type="radio" name="rewardPunishMethod_status" value="incomplete" style="margin-right: 8px; margin-top: 2px;">
+                                            <div style="flex: 1;">
+                                                <span style="color: #856404; font-weight: 500; display: block; margin-bottom: 6px;">⚠ 資料有缺漏</span>
+                                                <input type="text" class="reason-input" placeholder="請說明缺漏原因..." style="
+                                                    width: 100%;
+                                                    padding: 6px 10px;
+                                                    border: 1px solid #ffeaa7;
+                                                    border-radius: 4px;
+                                                    font-size: 13px;
+                                                    background: white;
+                                                ">
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 項目3: 獎懲之實際執行記錄 -->
+                            <div style="
+                                background: white;
+                                border: 2px solid #e9ecef;
+                                border-radius: 12px;
+                                padding: 20px;
+                                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                                transition: all 0.3s ease;
+                                position: relative;
+                                border-left: 5px solid #ffc107;
+                            " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 16px rgba(0,0,0,0.15)'; this.style.borderLeftColor='#fd7e14';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)'; this.style.borderLeftColor='#ffc107';">
+                                <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                                    <div style="
+                                        width: 32px;
+                                        height: 32px;
+                                        background: linear-gradient(135deg, #ffc107, #fd7e14);
+                                        border-radius: 50%;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        color: white;
+                                        font-weight: bold;
+                                        font-size: 14px;
+                                        margin-right: 12px;
+                                    ">3</div>
+                                    <span style="font-weight: 600; color: #2c3e50; font-size: 15px;">獎懲之實際執行記錄</span>
+                                </div>
+                                <div style="margin-left: 44px;">
+                                    <div style="margin-bottom: 8px;">
+                                        <label style="display: flex; align-items: center; padding: 6px 12px; background: #e8f5e8; border-radius: 6px; cursor: pointer;">
+                                            <input type="radio" name="executionRecord_status" value="complete" style="margin-right: 8px;">
+                                            <span style="color: #28a745; font-weight: 500;">✓ 資料完整</span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label style="display: flex; align-items: flex-start; padding: 8px 12px; background: #fff3cd; border-radius: 6px; cursor: pointer;">
+                                            <input type="radio" name="executionRecord_status" value="incomplete" style="margin-right: 8px; margin-top: 2px;">
+                                            <div style="flex: 1;">
+                                                <span style="color: #856404; font-weight: 500; display: block; margin-bottom: 6px;">⚠ 資料有缺漏</span>
+                                                <input type="text" class="reason-input" placeholder="請說明缺漏原因..." style="
+                                                    width: 100%;
+                                                    padding: 6px 10px;
+                                                    border: 1px solid #ffeaa7;
+                                                    border-radius: 4px;
+                                                    font-size: 13px;
+                                                    background: white;
+                                                ">
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
-                    <div class="section-divider"></div>
+                    <div class="section-divider" style="margin: 10px 0;"></div>
 
-                    <h4>影像式行車記錄器保存時間</h4>
+                    <div style="
+                        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+                        color: white;
+                        padding: 16px 20px;
+                        border-radius: 10px;
+                        margin-bottom: 20px;
+                        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+                        position: relative;
+                        overflow: hidden;
+                    ">
+                        <div style="
+                            position: absolute;
+                            top: -30%;
+                            left: -5%;
+                            width: 80px;
+                            height: 80px;
+                            background: rgba(255, 255, 255, 0.15);
+                            border-radius: 50%;
+                        "></div>
+                        <div style="
+                            display: flex;
+                            align-items: center;
+                            position: relative;
+                            z-index: 1;
+                        ">
+                            <svg width="24" height="24" style="margin-right: 12px; fill: white;" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                            </svg>
+                            <h4 style="
+                                margin: 0;
+                                font-size: 18px;
+                                font-weight: 600;
+                                color: white;
+                                text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+                            ">📹 影像式行車記錄器保存時間</h4>
+                        </div>
+                    </div>
                     <div class="checkbox-group">
                         <div class="checkbox-item">
                             <input type="checkbox" id="video14Days">
@@ -1188,26 +1466,330 @@
                             <option value="outsource">委外保養</option>
                         </select>
                     </div>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="safetyCheckForm">
-                            <label for="safetyCheckForm">出車安全檢查表 - 資料完整</label>
+                    <!-- 維修保養項目表格式呈現 -->
+                    <div style="margin-top: 25px;">
+                        <div style="
+                            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                            color: white;
+                            padding: 16px 20px;
+                            border-radius: 12px 12px 0 0;
+                            text-align: center;
+                            font-weight: 600;
+                            font-size: 16px;
+                            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+                        ">
+                            🔧 維修保養制度檢查項目
                         </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="maintenanceRecord">
-                            <label for="maintenanceRecord">車輛各級保養紀錄卡 - 資料完整</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="maintenanceProcedure">
-                            <label for="maintenanceProcedure">一般保養程序規章 - 資料完整</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="partsInventory">
-                            <label for="partsInventory">車廠備料狀況 - 資料完整</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="certifiedTechnician">
-                            <label for="certifiedTechnician">合格專業技師/技工 - 資料完整</label>
+                        
+                        <div style="
+                            display: grid;
+                            grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+                            gap: 16px;
+                            padding: 20px;
+                            background: white;
+                            border: 1px solid #e9ecef;
+                            border-radius: 0 0 12px 12px;
+                            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+                        ">
+                            <!-- 項目1 -->
+                            <div style="
+                                border: 2px solid #e9ecef;
+                                border-radius: 10px;
+                                padding: 18px;
+                                background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+                                transition: all 0.3s ease;
+                                position: relative;
+                                overflow: hidden;
+                            " onmouseover="this.style.borderColor='#007bff'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#e9ecef'; this.style.transform='translateY(0)'">
+                                <div style="
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    width: 100%;
+                                    height: 4px;
+                                    background: linear-gradient(90deg, #007bff, #0056b3);
+                                "></div>
+                                <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                                    <div style="
+                                        width: 32px;
+                                        height: 32px;
+                                        background: linear-gradient(135deg, #007bff, #0056b3);
+                                        border-radius: 50%;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        color: white;
+                                        font-weight: bold;
+                                        font-size: 14px;
+                                        margin-right: 12px;
+                                    ">1</div>
+                                    <span style="font-weight: 600; color: #2c3e50; font-size: 15px;">出車安全檢查表</span>
+                                </div>
+                                <div style="margin-left: 44px;">
+                                    <div style="margin-bottom: 8px;">
+                                        <label style="display: flex; align-items: center; padding: 6px 12px; background: #e8f5e8; border-radius: 6px; cursor: pointer;">
+                                            <input type="radio" name="safetyCheckForm_status" value="complete" style="margin-right: 8px;">
+                                            <span style="color: #28a745; font-weight: 500;">✓ 資料完整</span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label style="display: flex; align-items: flex-start; padding: 8px 12px; background: #fff3cd; border-radius: 6px; cursor: pointer;">
+                                            <input type="radio" name="safetyCheckForm_status" value="incomplete" style="margin-right: 8px; margin-top: 2px;">
+                                            <div style="flex: 1;">
+                                                <span style="color: #856404; font-weight: 500; display: block; margin-bottom: 6px;">⚠ 資料有缺漏</span>
+                                                <input type="text" class="reason-input" placeholder="請說明缺漏原因..." style="
+                                                    width: 100%;
+                                                    padding: 6px 10px;
+                                                    border: 1px solid #ffeaa7;
+                                                    border-radius: 4px;
+                                                    font-size: 13px;
+                                                    background: white;
+                                                ">
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 項目2 -->
+                            <div style="
+                                border: 2px solid #e9ecef;
+                                border-radius: 10px;
+                                padding: 18px;
+                                background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+                                transition: all 0.3s ease;
+                                position: relative;
+                                overflow: hidden;
+                            " onmouseover="this.style.borderColor='#28a745'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#e9ecef'; this.style.transform='translateY(0)'">
+                                <div style="
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    width: 100%;
+                                    height: 4px;
+                                    background: linear-gradient(90deg, #28a745, #20c997);
+                                "></div>
+                                <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                                    <div style="
+                                        width: 32px;
+                                        height: 32px;
+                                        background: linear-gradient(135deg, #28a745, #20c997);
+                                        border-radius: 50%;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        color: white;
+                                        font-weight: bold;
+                                        font-size: 14px;
+                                        margin-right: 12px;
+                                    ">2</div>
+                                    <span style="font-weight: 600; color: #2c3e50; font-size: 15px;">車輛各級保養紀錄卡</span>
+                                </div>
+                                <div style="margin-left: 44px;">
+                                    <div style="margin-bottom: 8px;">
+                                        <label style="display: flex; align-items: center; padding: 6px 12px; background: #e8f5e8; border-radius: 6px; cursor: pointer;">
+                                            <input type="radio" name="maintenanceRecord_status" value="complete" style="margin-right: 8px;">
+                                            <span style="color: #28a745; font-weight: 500;">✓ 資料完整</span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label style="display: flex; align-items: flex-start; padding: 8px 12px; background: #fff3cd; border-radius: 6px; cursor: pointer;">
+                                            <input type="radio" name="maintenanceRecord_status" value="incomplete" style="margin-right: 8px; margin-top: 2px;">
+                                            <div style="flex: 1;">
+                                                <span style="color: #856404; font-weight: 500; display: block; margin-bottom: 6px;">⚠ 資料有缺漏</span>
+                                                <input type="text" class="reason-input" placeholder="請說明缺漏原因..." style="
+                                                    width: 100%;
+                                                    padding: 6px 10px;
+                                                    border: 1px solid #ffeaa7;
+                                                    border-radius: 4px;
+                                                    font-size: 13px;
+                                                    background: white;
+                                                ">
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 項目3 -->
+                            <div style="
+                                border: 2px solid #e9ecef;
+                                border-radius: 10px;
+                                padding: 18px;
+                                background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+                                transition: all 0.3s ease;
+                                position: relative;
+                                overflow: hidden;
+                            " onmouseover="this.style.borderColor='#ffc107'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#e9ecef'; this.style.transform='translateY(0)'">
+                                <div style="
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    width: 100%;
+                                    height: 4px;
+                                    background: linear-gradient(90deg, #ffc107, #fd7e14);
+                                "></div>
+                                <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                                    <div style="
+                                        width: 32px;
+                                        height: 32px;
+                                        background: linear-gradient(135deg, #ffc107, #fd7e14);
+                                        border-radius: 50%;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        color: white;
+                                        font-weight: bold;
+                                        font-size: 14px;
+                                        margin-right: 12px;
+                                    ">3</div>
+                                    <span style="font-weight: 600; color: #2c3e50; font-size: 15px;">一般保養程序規章</span>
+                                </div>
+                                <div style="margin-left: 44px;">
+                                    <div style="margin-bottom: 8px;">
+                                        <label style="display: flex; align-items: center; padding: 6px 12px; background: #e8f5e8; border-radius: 6px; cursor: pointer;">
+                                            <input type="radio" name="maintenanceProcedure_status" value="complete" style="margin-right: 8px;">
+                                            <span style="color: #28a745; font-weight: 500;">✓ 資料完整</span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label style="display: flex; align-items: flex-start; padding: 8px 12px; background: #fff3cd; border-radius: 6px; cursor: pointer;">
+                                            <input type="radio" name="maintenanceProcedure_status" value="incomplete" style="margin-right: 8px; margin-top: 2px;">
+                                            <div style="flex: 1;">
+                                                <span style="color: #856404; font-weight: 500; display: block; margin-bottom: 6px;">⚠ 資料有缺漏</span>
+                                                <input type="text" class="reason-input" placeholder="請說明缺漏原因..." style="
+                                                    width: 100%;
+                                                    padding: 6px 10px;
+                                                    border: 1px solid #ffeaa7;
+                                                    border-radius: 4px;
+                                                    font-size: 13px;
+                                                    background: white;
+                                                ">
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 項目4 -->
+                            <div style="
+                                border: 2px solid #e9ecef;
+                                border-radius: 10px;
+                                padding: 18px;
+                                background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+                                transition: all 0.3s ease;
+                                position: relative;
+                                overflow: hidden;
+                            " onmouseover="this.style.borderColor='#17a2b8'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#e9ecef'; this.style.transform='translateY(0)'">
+                                <div style="
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    width: 100%;
+                                    height: 4px;
+                                    background: linear-gradient(90deg, #17a2b8, #20c997);
+                                "></div>
+                                <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                                    <div style="
+                                        width: 32px;
+                                        height: 32px;
+                                        background: linear-gradient(135deg, #17a2b8, #20c997);
+                                        border-radius: 50%;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        color: white;
+                                        font-weight: bold;
+                                        font-size: 14px;
+                                        margin-right: 12px;
+                                    ">4</div>
+                                    <span style="font-weight: 600; color: #2c3e50; font-size: 15px;">車廠備料狀況</span>
+                                </div>
+                                <div style="margin-left: 44px;">
+                                    <div style="margin-bottom: 8px;">
+                                        <label style="display: flex; align-items: center; padding: 6px 12px; background: #e8f5e8; border-radius: 6px; cursor: pointer;">
+                                            <input type="radio" name="partsInventory_status" value="complete" style="margin-right: 8px;">
+                                            <span style="color: #28a745; font-weight: 500;">✓ 資料完整</span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label style="display: flex; align-items: flex-start; padding: 8px 12px; background: #fff3cd; border-radius: 6px; cursor: pointer;">
+                                            <input type="radio" name="partsInventory_status" value="incomplete" style="margin-right: 8px; margin-top: 2px;">
+                                            <div style="flex: 1;">
+                                                <span style="color: #856404; font-weight: 500; display: block; margin-bottom: 6px;">⚠ 資料有缺漏</span>
+                                                <input type="text" class="reason-input" placeholder="請說明缺漏原因..." style="
+                                                    width: 100%;
+                                                    padding: 6px 10px;
+                                                    border: 1px solid #ffeaa7;
+                                                    border-radius: 4px;
+                                                    font-size: 13px;
+                                                    background: white;
+                                                ">
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 項目5 -->
+                            <div style="
+                                border: 2px solid #e9ecef;
+                                border-radius: 10px;
+                                padding: 18px;
+                                background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+                                transition: all 0.3s ease;
+                                position: relative;
+                                overflow: hidden;
+                            " onmouseover="this.style.borderColor='#6f42c1'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#e9ecef'; this.style.transform='translateY(0)'">
+                                <div style="
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    width: 100%;
+                                    height: 4px;
+                                    background: linear-gradient(90deg, #6f42c1, #e83e8c);
+                                "></div>
+                                <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                                    <div style="
+                                        width: 32px;
+                                        height: 32px;
+                                        background: linear-gradient(135deg, #6f42c1, #e83e8c);
+                                        border-radius: 50%;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        color: white;
+                                        font-weight: bold;
+                                        font-size: 14px;
+                                        margin-right: 12px;
+                                    ">5</div>
+                                    <span style="font-weight: 600; color: #2c3e50; font-size: 15px;">合格專業技師/技工</span>
+                                </div>
+                                <div style="margin-left: 44px;">
+                                    <div style="margin-bottom: 8px;">
+                                        <label style="display: flex; align-items: center; padding: 6px 12px; background: #e8f5e8; border-radius: 6px; cursor: pointer;">
+                                            <input type="radio" name="certifiedTechnician_status" value="complete" style="margin-right: 8px;">
+                                            <span style="color: #28a745; font-weight: 500;">✓ 資料完整</span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label style="display: flex; align-items: flex-start; padding: 8px 12px; background: #fff3cd; border-radius: 6px; cursor: pointer;">
+                                            <input type="radio" name="certifiedTechnician_status" value="incomplete" style="margin-right: 8px; margin-top: 2px;">
+                                            <div style="flex: 1;">
+                                                <span style="color: #856404; font-weight: 500; display: block; margin-bottom: 6px;">⚠ 資料有缺漏</span>
+                                                <input type="text" class="reason-input" placeholder="請說明缺漏原因..." style="
+                                                    width: 100%;
+                                                    padding: 6px 10px;
+                                                    border: 1px solid #ffeaa7;
+                                                    border-radius: 4px;
+                                                    font-size: 13px;
+                                                    background: white;
+                                                ">
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2398,6 +2980,643 @@
             });
         });
 
+        // 實時表單驗證反饋系統
+        function setupRealTimeValidation() {
+            // 為所有輸入欄位添加實時驗證
+            const allInputs = document.querySelectorAll('input[type="text"], input[type="number"], input[type="date"], input[type="email"], input[type="tel"], select, textarea');
+            
+            allInputs.forEach(input => {
+                // 添加輸入事件監聽器
+                input.addEventListener('input', function() {
+                    validateFieldRealTime(this);
+                });
+                
+                input.addEventListener('change', function() {
+                    validateFieldRealTime(this);
+                });
+                
+                input.addEventListener('blur', function() {
+                    validateFieldRealTime(this);
+                });
+            });
+            
+            // 為單選按鈕和複選框添加監聽器
+            const radioCheckboxInputs = document.querySelectorAll('input[type="radio"], input[type="checkbox"]');
+            radioCheckboxInputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    validateFieldRealTime(this);
+                    // 如果是單選按鈕，也要檢查相關的原因輸入框
+                    if (this.type === 'radio') {
+                        checkRelatedReasonInput(this);
+                    }
+                });
+            });
+        }
+        
+        // 實時驗證單個欄位
+        function validateFieldRealTime(input) {
+            // 處理單選按鈕和複選框群組
+            if (input.type === 'radio' || input.type === 'checkbox') {
+                validateRadioCheckboxGroup(input);
+                return;
+            }
+            
+            const isReasonInput = input.className.includes('reason-input') || 
+                                 input.closest('label')?.textContent.includes('原因') ||
+                                 input.previousElementSibling?.textContent.includes('原因');
+            
+            let shouldSkipValidation = false;
+            
+            // 檢查原因輸入框是否需要跳過驗證
+            if (isReasonInput) {
+                shouldSkipValidation = checkIfReasonInputShouldSkip(input);
+            }
+            
+            // 移除現有的驗證圖示
+            removeValidationIcon(input);
+            
+            if (!shouldSkipValidation) {
+                if (input.value.trim() !== '' && input.value !== '請選擇') {
+                    // 欄位已填寫 - 顯示成功樣式
+                    setFieldSuccess(input);
+                } else {
+                    // 欄位未填寫 - 顯示錯誤樣式
+                    setFieldError(input);
+                }
+            } else {
+                // 跳過驗證的欄位 - 清除樣式
+                clearFieldStyle(input);
+            }
+        }
+        
+        // 驗證單選按鈕和複選框群組
+        function validateRadioCheckboxGroup(input) {
+            const groupName = input.name;
+            if (!groupName) return;
+            
+            // 找到同一群組的所有選項
+            const groupInputs = document.querySelectorAll(`input[name="${groupName}"]`);
+            const isGroupSelected = Array.from(groupInputs).some(inp => inp.checked);
+            
+            // 為群組中的每個選項設置樣式
+            groupInputs.forEach(groupInput => {
+                const label = groupInput.closest('label') || groupInput.nextElementSibling;
+                if (label) {
+                    // 移除現有的驗證圖示
+                    removeValidationIconFromLabel(label);
+                    
+                    if (isGroupSelected) {
+                        // 群組已選擇 - 顯示成功樣式
+                        setLabelSuccess(label, groupInput);
+                    } else {
+                        // 群組未選擇 - 顯示錯誤樣式
+                        setLabelError(label, groupInput);
+                    }
+                }
+            });
+        }
+        
+        // 設置標籤成功樣式
+        function setLabelSuccess(label, input) {
+            label.style.borderColor = '#28a745';
+            label.style.boxShadow = '0 0 0 2px rgba(40, 167, 69, 0.25)';
+            label.style.color = '#28a745';
+            
+            // 添加成功圖示到標籤
+            addValidationIconToLabel(label, 'success');
+        }
+        
+        // 設置標籤錯誤樣式
+        function setLabelError(label, input) {
+            label.style.borderColor = '#dc3545';
+            label.style.boxShadow = '0 0 0 2px rgba(220, 53, 69, 0.25)';
+            label.style.color = '#dc3545';
+            
+            // 添加錯誤圖示到標籤
+            addValidationIconToLabel(label, 'error');
+        }
+        
+        // 清除標籤樣式
+        function clearLabelStyle(label) {
+            label.style.borderColor = '';
+            label.style.boxShadow = '';
+            label.style.color = '';
+            
+            // 移除驗證圖示
+            removeValidationIconFromLabel(label);
+        }
+        
+        // 為標籤添加驗證圖示
+        function addValidationIconToLabel(label, type) {
+            // 先移除現有圖示
+            removeValidationIconFromLabel(label);
+            
+            const icon = document.createElement('span');
+            icon.className = 'validation-icon-label';
+            icon.style.cssText = `
+                margin-left: 8px;
+                font-size: 14px;
+                font-weight: bold;
+                display: inline-block;
+            `;
+            
+            if (type === 'success') {
+                icon.innerHTML = '✓';
+                icon.style.color = '#28a745';
+            } else if (type === 'error') {
+                icon.innerHTML = '✗';
+                icon.style.color = '#dc3545';
+            }
+            
+            label.appendChild(icon);
+        }
+        
+        // 從標籤移除驗證圖示
+        function removeValidationIconFromLabel(label) {
+            const existingIcon = label.querySelector('.validation-icon-label');
+            if (existingIcon) {
+                existingIcon.remove();
+            }
+        }
+        
+        // 檢查原因輸入框是否應該跳過驗證
+        function checkIfReasonInputShouldSkip(input) {
+            const groupContainer = input.closest('.form-group') || input.closest('.checkbox-options') || input.closest('.form-field') || input.closest('div');
+            const allInputs = groupContainer?.querySelectorAll('input[type="checkbox"], input[type="radio"]') || [];
+            
+            for (let inputElement of allInputs) {
+                const inputLabel = inputElement.closest('label') || 
+                                  inputElement.nextElementSibling || 
+                                  inputElement.previousElementSibling ||
+                                  inputElement.parentElement?.querySelector('label');
+                
+                if (inputLabel && inputLabel.textContent.includes('資料完整') && inputElement.checked) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        
+        // 檢查相關的原因輸入框
+        function checkRelatedReasonInput(radioInput) {
+            const container = radioInput.closest('div');
+            const reasonInputs = container?.querySelectorAll('.reason-input') || [];
+            
+            reasonInputs.forEach(reasonInput => {
+                validateFieldRealTime(reasonInput);
+            });
+        }
+        
+        // 設置欄位成功樣式
+        function setFieldSuccess(input) {
+            input.style.borderColor = '#28a745';
+            input.style.boxShadow = '0 0 0 3px rgba(40, 167, 69, 0.25)';
+            input.style.color = '#28a745';
+            
+            // 添加成功圖示
+            addValidationIcon(input, 'success');
+        }
+        
+        // 設置欄位錯誤樣式
+        function setFieldError(input) {
+            input.style.borderColor = '#dc3545';
+            input.style.boxShadow = '0 0 0 3px rgba(220, 53, 69, 0.25)';
+            input.style.color = '#dc3545';
+            
+            // 添加錯誤圖示
+            addValidationIcon(input, 'error');
+        }
+        
+        // 清除欄位樣式
+        function clearFieldStyle(input) {
+            input.style.borderColor = '#dee2e6';
+            input.style.boxShadow = '';
+            input.style.color = '';
+            
+            // 移除驗證圖示
+            removeValidationIcon(input);
+        }
+        
+        // 添加驗證圖示
+        function addValidationIcon(input, type) {
+            // 先移除現有圖示
+            removeValidationIcon(input);
+            
+            const icon = document.createElement('span');
+            icon.className = 'validation-icon';
+            icon.style.cssText = `
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 16px;
+                font-weight: bold;
+                z-index: 10;
+                pointer-events: none;
+            `;
+            
+            if (type === 'success') {
+                icon.innerHTML = '✓';
+                icon.style.color = '#28a745';
+            } else if (type === 'error') {
+                icon.innerHTML = '✗';
+                icon.style.color = '#dc3545';
+            }
+            
+            // 確保父容器有相對定位
+            const parent = input.parentElement;
+            if (parent && getComputedStyle(parent).position === 'static') {
+                parent.style.position = 'relative';
+            }
+            
+            parent.appendChild(icon);
+        }
+        
+        // 移除驗證圖示
+        function removeValidationIcon(input) {
+            const parent = input.parentElement;
+            const existingIcon = parent?.querySelector('.validation-icon');
+            if (existingIcon) {
+                existingIcon.remove();
+            }
+        }
+        
+        // 動態錯誤訊息系統
+        let currentErrorList = [];
+        let errorMessageContainer = null;
+        
+        // 顯示持續的錯誤訊息
+        function showPersistentErrorMessage(message) {
+            // 移除現有的錯誤訊息
+            const existingMessage = document.querySelector('.persistent-error-message');
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+            
+            // 創建錯誤訊息容器
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'persistent-error-message';
+            messageDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #e74c3c, #c0392b);
+                color: white;
+                padding: 18px;
+                border-radius: 10px;
+                box-shadow: 0 6px 20px rgba(231, 76, 60, 0.25);
+                z-index: 10000;
+                max-width: 350px;
+                max-height: 70vh;
+                overflow-y: auto;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                border: 1px solid rgba(255, 255, 255, 0.15);
+            `;
+            
+            messageDiv.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                    <h4 style="margin: 0; font-size: 15px; font-weight: 600;">表單填寫不完整</h4>
+                    <button onclick="this.parentElement.parentElement.remove()" style="
+                        background: none;
+                        border: none;
+                        color: white;
+                        font-size: 16px;
+                        cursor: pointer;
+                        padding: 0;
+                        width: 18px;
+                        height: 18px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        opacity: 0.8;
+                    ">×</button>
+                </div>
+                <div style="font-size: 13px; margin-bottom: 8px; opacity: 0.9;">還有 <span id="error-count">0</span> 個欄位需要填寫</div>
+                <div id="error-list" style="font-size: 12px; line-height: 1.5; max-height: 300px; overflow-y: auto;"></div>
+            `;
+            
+            document.body.appendChild(messageDiv);
+            errorMessageContainer = messageDiv.querySelector('#error-list');
+            
+            // 更新錯誤列表
+            updateErrorList();
+        }
+        
+        // 更新錯誤列表顯示
+        function updateErrorList() {
+            if (!errorMessageContainer) return;
+            
+            // 重新收集當前的錯誤
+            currentErrorList = collectCurrentErrors();
+            
+            // 只顯示未完成的項目
+            const incompleteErrors = currentErrorList.filter(error => !error.isCompleted);
+            
+            // 更新錯誤計數
+            const errorCountElement = document.getElementById('error-count');
+            if (errorCountElement) {
+                errorCountElement.textContent = incompleteErrors.length;
+            }
+            
+            // 清空現有列表
+            errorMessageContainer.innerHTML = '';
+            
+            // 如果沒有未完成的項目，顯示完成訊息
+            if (incompleteErrors.length === 0 && currentErrorList.length > 0) {
+                const errorMessage = document.querySelector('.persistent-error-message');
+                if (errorMessage) {
+                    errorMessage.style.background = 'linear-gradient(135deg, #27ae60, #2ecc71)';
+                    errorMessage.querySelector('h4').textContent = '表單填寫完成！';
+                    errorMessage.innerHTML = `
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                            <h4 style="margin: 0; font-size: 15px; font-weight: 600;">表單填寫完成！</h4>
+                            <button onclick="this.parentElement.parentElement.remove()" style="
+                                background: none;
+                                border: none;
+                                color: white;
+                                font-size: 16px;
+                                cursor: pointer;
+                                padding: 0;
+                                width: 18px;
+                                height: 18px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                opacity: 0.8;
+                            ">×</button>
+                        </div>
+                        <div style="font-size: 13px; opacity: 0.9;">✓ 所有必填欄位已完成</div>
+                    `;
+                    setTimeout(() => errorMessage.remove(), 3000);
+                }
+                return;
+            }
+            
+            // 限制顯示的項目數量，避免過多
+            const maxDisplayItems = 15;
+            const displayErrors = incompleteErrors.slice(0, maxDisplayItems);
+            const remainingCount = incompleteErrors.length - maxDisplayItems;
+            
+            // 為每個未完成的錯誤項目創建元素
+            displayErrors.forEach((error, index) => {
+                const errorItem = document.createElement('div');
+                errorItem.className = 'error-item';
+                errorItem.setAttribute('data-field', error.field);
+                errorItem.style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 6px;
+                    padding: 4px 6px;
+                    border-radius: 4px;
+                    background: rgba(255, 255, 255, 0.08);
+                    transition: all 0.3s ease;
+                `;
+                
+                errorItem.innerHTML = `
+                    <span style="
+                        color: #ffcccb;
+                        font-weight: bold;
+                        margin-right: 6px;
+                        font-size: 12px;
+                    ">•</span>
+                    <span style="flex: 1; opacity: 0.95;">${error.message}</span>
+                `;
+                
+                errorMessageContainer.appendChild(errorItem);
+            });
+            
+            // 如果還有更多項目，顯示提示
+            if (remainingCount > 0) {
+                const moreItem = document.createElement('div');
+                moreItem.style.cssText = `
+                    margin-top: 8px;
+                    padding: 4px 6px;
+                    font-size: 11px;
+                    opacity: 0.7;
+                    font-style: italic;
+                    text-align: center;
+                `;
+                moreItem.textContent = `... 還有 ${remainingCount} 個欄位需要填寫`;
+                errorMessageContainer.appendChild(moreItem);
+            }
+        }
+        
+        // 收集當前的錯誤狀態
+        function collectCurrentErrors() {
+            const errors = [];
+            
+            // 檢查文字輸入框
+            const textInputs = document.querySelectorAll('input[type="text"], input[type="number"], input[type="date"], input[type="email"], input[type="tel"]');
+            textInputs.forEach(input => {
+                const isReasonInput = input.className.includes('reason-input');
+                const shouldSkip = isReasonInput ? checkIfReasonInputShouldSkip(input) : false;
+                
+                if (!shouldSkip) {
+                    const label = getFieldLabel(input);
+                    const isCompleted = input.value.trim() !== '';
+                    errors.push({
+                        field: input.id || input.name || label,
+                        message: `請填寫「${label}」`,
+                        isCompleted: isCompleted
+                    });
+                }
+            });
+            
+            // 檢查下拉選單
+            const dropdowns = document.querySelectorAll('select');
+            dropdowns.forEach(dropdown => {
+                const label = getFieldLabel(dropdown);
+                const isCompleted = dropdown.value !== '' && dropdown.value !== '請選擇';
+                errors.push({
+                    field: dropdown.id || dropdown.name || label,
+                    message: `請選擇「${label}」`,
+                    isCompleted: isCompleted
+                });
+            });
+            
+            // 檢查文字區域
+            const textareas = document.querySelectorAll('textarea');
+            textareas.forEach(textarea => {
+                const label = getFieldLabel(textarea);
+                const isCompleted = textarea.value.trim() !== '';
+                errors.push({
+                    field: textarea.id || textarea.name || label,
+                    message: `請填寫「${label}」`,
+                    isCompleted: isCompleted
+                });
+            });
+            
+            // 檢查單選按鈕群組
+            const radioGroups = {};
+            const radios = document.querySelectorAll('input[type="radio"]');
+            radios.forEach(radio => {
+                if (!radioGroups[radio.name]) {
+                    radioGroups[radio.name] = [];
+                }
+                radioGroups[radio.name].push(radio);
+            });
+            
+            Object.keys(radioGroups).forEach(groupName => {
+                const group = radioGroups[groupName];
+                const isCompleted = group.some(radio => radio.checked);
+                const firstRadio = group[0];
+                const fieldContainer = firstRadio.closest('.form-field') || firstRadio.closest('.form-group');
+                const groupLabel = fieldContainer?.querySelector('h3, h4, label')?.textContent || `選項群組 ${groupName}`;
+                
+                errors.push({
+                    field: groupName,
+                    message: `請選擇「${groupLabel.replace('*', '').trim()}」中的一個選項`,
+                    isCompleted: isCompleted
+                });
+            });
+            
+            // 檢查複選框群組
+            const checkboxGroups = {};
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+
+                
+                // 跳過那些在互斥群組中的複選框（如B5區塊）
+                const formGroupTitle = checkbox.closest('.form-group')?.querySelector('h3, h4')?.textContent;
+                const isInMutuallyExclusiveGroup = (formGroupTitle && formGroupTitle.includes('請選擇其中一項')) || 
+                                                   checkbox.closest('.checkbox-group')?.getAttribute('data-mutually-exclusive') === 'true';
+                
+
+                
+                if (isInMutuallyExclusiveGroup) {
+                    // 處理互斥群組（如B5）
+                    const groupContainer = checkbox.closest('.form-group') || checkbox.closest('.checkbox-group');
+                    const groupId = groupContainer?.id || `mutual-group-${Math.random().toString(36).substr(2, 9)}`;
+                    
+                    if (!checkboxGroups[groupId]) {
+                        checkboxGroups[groupId] = {
+                            type: 'mutually-exclusive',
+                            checkboxes: [],
+                            container: groupContainer
+                        };
+                    }
+                    checkboxGroups[groupId].checkboxes.push(checkbox);
+                } else {
+                    // 處理一般複選框（需要全部勾選）
+                    const checkboxId = checkbox.id || checkbox.name || `checkbox-${Math.random().toString(36).substr(2, 9)}`;
+                    
+
+                    
+                    checkboxGroups[checkboxId] = {
+                        type: 'individual',
+                        checkboxes: [checkbox],
+                        container: checkbox.closest('.form-field') || checkbox.closest('.form-group') || checkbox.parentElement
+                    };
+                }
+            });
+            
+            // 檢查每個複選框群組
+
+            
+            Object.keys(checkboxGroups).forEach(groupId => {
+                const group = checkboxGroups[groupId];
+                
+
+                
+                if (group.type === 'mutually-exclusive') {
+                    // 互斥群組：至少要選擇一個
+                    const isCompleted = group.checkboxes.some(cb => cb.checked);
+                    const groupTitle = group.container?.querySelector('h3, h4')?.textContent || '選項群組';
+                    
+                    errors.push({
+                        field: groupId,
+                        message: `請在「${groupTitle.replace('*', '').trim()}」中選擇一個選項`,
+                        isCompleted: isCompleted
+                    });
+                } else {
+                    // 一般複選框：每個都要勾選
+                    group.checkboxes.forEach(checkbox => {
+                        // 更全面的標籤獲取邏輯
+                        let label = null;
+                        let labelText = '';
+                        
+                        // 方法1: 通過 for 屬性找到對應的 label
+                        if (checkbox.id) {
+                            label = document.querySelector(`label[for="${checkbox.id}"]`);
+                        }
+                        
+                        // 方法2: 檢查是否在 label 元素內
+                        if (!label) {
+                            label = checkbox.closest('label');
+                        }
+                        
+                        // 方法3: 檢查相鄰的 label 元素
+                        if (!label) {
+                            const nextSibling = checkbox.nextElementSibling;
+                            const prevSibling = checkbox.previousElementSibling;
+                            
+                            if (nextSibling && nextSibling.tagName === 'LABEL') {
+                                label = nextSibling;
+                            } else if (prevSibling && prevSibling.tagName === 'LABEL') {
+                                label = prevSibling;
+                            }
+                        }
+                        
+                        // 方法4: 在父容器中尋找 label
+                        if (!label) {
+                            const container = checkbox.closest('.checkbox-item') || checkbox.closest('.form-field') || checkbox.closest('.form-group');
+                            label = container?.querySelector('label');
+                        }
+                        
+                        // 獲取標籤文字
+                        if (label) {
+                            labelText = label.textContent.replace('*', '').trim();
+                        } else {
+                            // 如果找不到 label，嘗試從 checkbox 的屬性或 ID 推斷
+                            labelText = checkbox.getAttribute('aria-label') || 
+                                       checkbox.title || 
+                                       checkbox.id || 
+                                       checkbox.name || 
+                                       '某個選項';
+                        }
+                        
+                        const isCompleted = checkbox.checked;
+                        
+
+                        
+                        // 只有當標籤文字有意義時才加入錯誤列表
+                        if (labelText && labelText !== '某個選項') {
+                            errors.push({
+                                field: checkbox.id || checkbox.name || labelText,
+                                message: `請勾選「${labelText}」`,
+                                isCompleted: isCompleted
+                            });
+                        }
+                    });
+                }
+            });
+            
+            return errors;
+        }
+        
+        // 獲取欄位標籤
+        function getFieldLabel(input) {
+            const label = input.closest('.form-field')?.querySelector('label') || 
+                         input.previousElementSibling?.tagName === 'LABEL' ? input.previousElementSibling : null;
+            return label ? label.textContent.replace('*', '').trim() : '某個欄位';
+        }
+        
+        // 擴展實時驗證以更新錯誤列表
+        const originalValidateFieldRealTime = validateFieldRealTime;
+        validateFieldRealTime = function(input) {
+            originalValidateFieldRealTime(input);
+            
+            // 如果錯誤訊息正在顯示，更新錯誤列表
+            if (errorMessageContainer) {
+                setTimeout(updateErrorList, 100);
+            }
+        };
+        
+        // 頁面載入時初始化實時驗證
+        document.addEventListener('DOMContentLoaded', function() {
+            setupRealTimeValidation();
+        });
+
     
 
         // 表單驗證 - 要求所有欄位都必須填寫
@@ -2416,21 +3635,21 @@
                 let shouldSkipValidation = false;
                 
                 if (isReasonInput) {
-                    // 尋找同一群組中的「資料完整」複選框
-                    const groupContainer = input.closest('.form-group') || input.closest('.checkbox-options') || input.closest('.form-field');
+                    // 尋找同一群組中的「資料完整」選項（支援複選框和單選按鈕）
+                    const groupContainer = input.closest('.form-group') || input.closest('.checkbox-options') || input.closest('.form-field') || input.closest('div');
                     
-                    // 更廣泛地搜尋所有複選框
-                    const allCheckboxes = groupContainer?.querySelectorAll('input[type="checkbox"]') || [];
+                    // 搜尋複選框和單選按鈕
+                    const allInputs = groupContainer?.querySelectorAll('input[type="checkbox"], input[type="radio"]') || [];
                     
-                    // 檢查每個複選框是否為「資料完整」選項
-                    for (let checkbox of allCheckboxes) {
-                        const checkboxLabel = checkbox.closest('label') || 
-                                            checkbox.nextElementSibling || 
-                                            checkbox.previousElementSibling ||
-                                            checkbox.parentElement?.querySelector('label');
+                    // 檢查每個輸入是否為「資料完整」選項
+                    for (let inputElement of allInputs) {
+                        const inputLabel = inputElement.closest('label') || 
+                                          inputElement.nextElementSibling || 
+                                          inputElement.previousElementSibling ||
+                                          inputElement.parentElement?.querySelector('label');
                         
-                        if (checkboxLabel && checkboxLabel.textContent.includes('資料完整')) {
-                            if (checkbox.checked) {
+                        if (inputLabel && inputLabel.textContent.includes('資料完整')) {
+                            if (inputElement.checked) {
                                 shouldSkipValidation = true;
                                 // 清除錯誤樣式
                                 input.style.borderColor = '#dee2e6';
@@ -2444,20 +3663,20 @@
                     // 如果沒找到，擴大搜尋範圍到整個表單區段
                     if (!shouldSkipValidation) {
                         const sectionContainer = input.closest('.section') || document;
-                        const allSectionCheckboxes = sectionContainer.querySelectorAll('input[type="checkbox"]');
+                        const allSectionInputs = sectionContainer.querySelectorAll('input[type="checkbox"], input[type="radio"]');
                         
-                        for (let checkbox of allSectionCheckboxes) {
-                            const checkboxLabel = checkbox.closest('label') || 
-                                                checkbox.nextElementSibling || 
-                                                checkbox.previousElementSibling ||
-                                                checkbox.parentElement?.querySelector('label');
+                        for (let inputElement of allSectionInputs) {
+                            const inputLabel = inputElement.closest('label') || 
+                                              inputElement.nextElementSibling || 
+                                              inputElement.previousElementSibling ||
+                                              inputElement.parentElement?.querySelector('label');
                             
-                            if (checkboxLabel && checkboxLabel.textContent.includes('資料完整')) {
-                                // 檢查這個複選框是否與當前輸入框在相近的位置
-                                const checkboxGroup = checkbox.closest('.form-group');
-                                const inputGroup = input.closest('.form-group');
+                            if (inputLabel && inputLabel.textContent.includes('資料完整')) {
+                                // 檢查這個輸入是否與當前輸入框在相近的位置
+                                const inputGroup = inputElement.closest('.form-group') || inputElement.closest('div');
+                                const reasonInputGroup = input.closest('.form-group') || input.closest('div');
                                 
-                                if (checkboxGroup === inputGroup && checkbox.checked) {
+                                if (inputGroup === reasonInputGroup && inputElement.checked) {
                                     shouldSkipValidation = true;
                                     input.style.borderColor = '#dee2e6';
                                     input.style.boxShadow = '';
@@ -2676,12 +3895,27 @@
                 errorMessages.push('停車格位數似乎過多，請檢查是否正確');
             }
             
+            // 使用新的錯誤收集邏輯
+            const currentErrors = collectCurrentErrors();
+            const incompleteErrors = currentErrors.filter(error => !error.isCompleted);
+            
+            // 調試：輸出錯誤收集結果
+            console.log('validateForm 調試信息:');
+            console.log('currentErrors:', currentErrors);
+            console.log('incompleteErrors:', incompleteErrors);
+            console.log('errorMessages:', errorMessages);
+            
+            // 合併舊的錯誤訊息和新的錯誤訊息
+            const allErrorMessages = [...errorMessages, ...incompleteErrors.map(error => error.message)];
+            console.log('allErrorMessages:', allErrorMessages);
+            
             // 顯示錯誤訊息 - 使用專門的持續顯示函數
-            if (!isValid) {
+            if (!isValid || incompleteErrors.length > 0) {
+                console.log('準備顯示錯誤訊息，總錯誤數:', allErrorMessages.length);
                 showPersistentErrorMessage(
                     `<strong>表單填寫不完整！</strong><br><br>` +
                     `請填寫以下必填欄位：<br>` +
-                    errorMessages.map(msg => `• ${msg}`).join('<br>') +
+                    allErrorMessages.map(msg => `• ${msg}`).join('<br>') +
                     `<br><br><em>所有欄位都是必填的，請確保沒有遺漏任何資料。</em>`
                 );
                 
